@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clickable Tree Diagram with Zoom and Info Panel</title>
+    <script src="https://kit.fontawesome.com/b593ca79be.js" crossorigin="anonymous"></script>
+    <style>
+      :root {
+        --white: #f8f8f8;
+        --lightGrey: #a3a3a3;
+        --midGrey: #7c7c7c;
+        --darkGrey: #333;
+        --black: black;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: var(--white);
+        color: var(--darkGrey);
+        height: 100vh;
+        overflow-y: auto;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      main {
+        background-color: inherit;
+      }
+
+      /* Header and Footer Styling */
+      header,
+      footer {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        z-index: 10;
+        background-color: transparent;
+      }
+
+      header {
+        top: 0;
+      }
+
+      footer {
+        bottom: 0;
+        justify-content: flex-end;
+      }
+
+      header a,
+      footer i,
+      .dropdown i {
+        color: inherit;
+        font-size: 24px;
+        cursor: pointer;
+        margin: 0 10px;
+        transition: opacity 0.3s, font-size 0.3s, color 0.3s;
+      }
+
+      header a:hover,
+      footer i:hover,
+      .dropdown i:hover {
+        filter: opacity(0.75);
+      }
+
+      footer i {
+        font-size: 28px;
+      }
+
+      .user-icon {
+        margin-left: auto;
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        right: 0;
+        background-color: var(--white);
+        min-width: 150px;
+        padding: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        z-index: 10;
+        border-radius: 5px;
+        transition: opacity 0.3s ease;
+      }
+
+      .dropdown-content a {
+        color: var(--black);
+        padding: 8px 16px;
+        text-decoration: none;
+        display: block;
+        font-weight: bold;
+      }
+
+      .dropdown-content a:hover {
+        background-color: #f1f1f1;
+      }
+
+      /* Dark mode */
+      .dark-mode {
+        background-color: var(--darkGrey);
+        color: var(--white);
+      }
+
+      /* Tree Diagram */
+      .tree-container {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 0;
+        transform-origin: center;
+        transition: transform 0.3s ease;
+        cursor: grab;
+        overflow: hidden;
+      }
+
+      .tree button {
+        border: solid 0.1em var(--black);
+        border-radius: 0.2em;
+        background-color: inherit;
+        color: inherit;
+        cursor: pointer;
+        display: inline-block;
+        margin: 0 0.2em 0.5em;
+        padding: 0.2em 0.5em;
+        position: relative;
+        transition: background-color 0.3s;
+        z-index: 1;
+        white-space: nowrap;
+      }
+
+      .tree button:hover {
+        background-color: #b8b8b8;
+      }
+
+      .tree button.selected {
+        background-color: var(--midGrey);
+        transition: background-color 0.3s;
+      }
+
+      .tree,
+      .tree ul,
+      .tree li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        position: relative;
+      }
+
+      .tree {
+        margin: 0 0 1em;
+        text-align: center;
+        position: fixed;
+        transform-origin: 0 0;
+      }
+
+      .tree,
+      .tree ul {
+        display: table;
+      }
+
+      .tree ul {
+        width: 100%;
+      }
+
+      .tree li {
+        display: table-cell;
+        padding: 0.5em 0;
+        vertical-align: top;
+      }
+
+      /* _________ */
+      .tree li:before {
+        outline: solid 1px var(--midGrey);
+        content: "";
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+      .tree li:first-child:before {
+        left: 50%;
+      }
+      .tree li:last-child:before {
+        right: 50%;
+      }
+
+      /* | */
+      .tree ul:before,
+      .tree button:before {
+        outline: solid 1px var(--midGrey);
+        content: "";
+        height: 0.4em;
+        left: 50%;
+        position: absolute;
+      }
+      .tree ul:before {
+        top: -0.35em;
+        height: 0.289em;
+      }
+      .tree button:before {
+        top: -0.55em;
+      }
+
+      /* The root node doesn't connect upwards */
+      .tree > li {
+        margin-top: 0;
+      }
+      .tree > li:before,
+      .tree > li:after,
+      .tree > li > button:before {
+        outline: none;
+      }
+
+      /* Information Panel */
+      .info-panel {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-top: 2px solid var(--black);
+        padding: 0 20px;
+        display: none;
+        height: 35%;
+        box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.3);
+        z-index: 5; /* Behind the header and footer */
+        transition: transform 0.3s ease;
+        background-color: inherit;
+      }
+
+      .info-panel.show {
+        display: block;
+      }
+
+      .info-panel h3 {
+        margin: 0;
+        font-size: 24px;
+      }
+
+      .info-panel p {
+        font-size: 16px;
+        margin: 5px 0;
+      }
+
+      .tab-container {
+        display: flex;
+        justify-content: flex-start;
+        border-bottom: 1px solid var(--black);
+        margin-bottom: 10px;
+      }
+
+      .tab {
+        padding: 10px 20px;
+        cursor: pointer;
+        border: none;
+        background-color: inherit;
+        color: inherit;
+        font-weight: bold;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      .tab:hover {
+        background-color: #e0e0e0;
+      }
+
+      .tab.active {
+        border-bottom: 2px solid var(--black);
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.show {
+        display: block;
+      }
+    </style>
+  </head>
+  <body class="dark-mode">
+    <!-- Header -->
+    <header>
+      <a href="#"><i class="fa-solid fa-house-chimney"></i></a>
+      <a href="#" class="user-icon"><i class="fa-solid fa-user"></i></a>
+      <div class="dropdown">
+        <i class="fa-solid fa-bars" onclick="toggleDropdown()"></i>
+        <div class="dropdown-content" id="dropdownMenu">
+          <a href="#">Account</a>
+          <a href="#">Skill Tree</a>
+          <a href="#">Skill List</a>
+          <a href="#">Sign Out</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <div class="tree-container">
+        <ul class="tree">
+          <li>
+            <button>Home</button>
+            <ul>
+              <li>
+                <button>About us</button>
+                <ul>
+                  <li>
+                    <button>Our history</button>
+                    <ul>
+                      <li>
+                        <button>Founder</button>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <button>Our board</button>
+                    <ul>
+                      <li>
+                        <button>Brad Whiteman</button>
+                      </li>
+                      <li>
+                        <button>Cynthia Tolken</button>
+                      </li>
+                      <li>
+                        <button>Bobby Founderson</button>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <button>Our products</button>
+                <ul>
+                  <li>
+                    <button>The Widget 2000™</button>
+                    <ul>
+                      <li>
+                        <button>Order form</button>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <button>The McGuffin V2</button>
+                    <ul>
+                      <li>
+                        <button>Order form</button>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <button>Contact us</button>
+                <ul>
+                  <li>
+                    <button>Social media</button>
+                    <ul>
+                      <li>
+                        <button>Facebook</button>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Information Panel within Main -->
+      <div class="info-panel" id="infoPanel">
+        <div class="tab-container">
+          <button class="tab" onclick="showTab('description')">Description</button>
+          <button class="tab" onclick="showTab('relatedSkills')">Related Skills</button>
+          <button class="tab" onclick="showTab('ai')">AI</button>
+        </div>
+        <div class="tab-content" id="descriptionTab">
+          <h3 id="infoTitle">Node Title</h3>
+          <p id="infoDescription">Node Description</p>
+        </div>
+        <div class="tab-content" id="relatedSkillsTab" style="display: none">
+          <h3>Related Skills</h3>
+          <p>Related skills content goes here.</p>
+        </div>
+        <div class="tab-content" id="aiTab" style="display: none">
+          <h3>AI</h3>
+          <p>AI-related content goes here.</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <i class="fa-solid fa-expand" onclick="resetScale()" title="Reset Zoom" style="margin-left: 15px; cursor: pointer; display: none"></i>
+      <i class="fa-regular fa-lightbulb" onclick="toggleDarkMode()" title="Toggle Dark Mode"></i>
+    </footer>
+
+    <script>
+      // Dark Mode Toggle
+      function toggleDarkMode() {
+        document.body.classList.toggle("dark-mode");
+      }
+
+      // Dropdown Toggle
+      function toggleDropdown() {
+        const dropdownMenu = document.getElementById("dropdownMenu");
+        dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+      }
+
+      let currentNode = null;
+      document.querySelectorAll("button").forEach((button) => {
+        button.addEventListener("click", (event) => {
+          const infoPanel = document.getElementById("infoPanel");
+          const infoTitle = document.getElementById("infoTitle");
+          const infoDescription = document.getElementById("infoDescription");
+
+          const title = button.textContent;
+          const description = "Some description here"; // TODO Update with database
+          const nodeElement = event.target;
+
+          if (currentNode === title) {
+            infoPanel.classList.remove("show");
+            nodeElement.classList.remove("selected"); // Remove selection from the node
+            currentNode = null;
+          } else {
+            if (currentNode) {
+              // Remove 'selected' class from previously selected node
+              document.querySelector("button.selected")?.classList.remove("selected");
+            }
+
+            infoTitle.textContent = title;
+            infoDescription.textContent = description;
+            infoPanel.classList.add("show");
+            nodeElement.classList.add("selected"); // Add selection to the clicked node
+            currentNode = title;
+          }
+        });
+      });
+
+      // Initialize scale and translation
+      let scale = 1;
+      let translateX = 0;
+      let translateY = 0;
+
+      const tree = document.querySelector(".tree");
+      const zoomBtn = document.querySelector(".fa-expand");
+
+      window.addEventListener("wheel", (event) => {
+        // Adjust the zoom scale
+        const zoomFactor = event.deltaY * -0.001;
+        const oldScale = scale;
+        scale = Math.min(Math.max(0.5, scale + zoomFactor), 5);
+
+        // Calculate the scaling adjustment
+        const scaleAdjustment = 1 - scale / oldScale;
+
+        translateX += (event.clientX - translateX) * scaleAdjustment;
+        translateY += (event.clientY - translateY) * scaleAdjustment;
+
+        // Apply the transform with new scale and translation
+        tree.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+
+        // Show the reset zoom button
+        zoomBtn.style.display = "block";
+      });
+
+      // Reset zoom function
+      function resetScale() {
+        // Reset scale
+        scale = 1;
+        tree.style.transform = `scale(1)`;
+
+        // Get container and tree dimensions as numbers
+        let container = document.querySelector(".tree-container");
+        let containerWidth = parseFloat(window.getComputedStyle(container).width);
+        let containerHeight = parseFloat(window.getComputedStyle(container).height);
+        let treeWidth = parseFloat(window.getComputedStyle(tree).width);
+        let treeHeight = parseFloat(window.getComputedStyle(tree).height);
+
+        // Calculate centered positions
+        let centerX = (containerWidth - treeWidth) / 2;
+        let centerY = (containerHeight - treeHeight) / 2;
+
+        // Apply centering and reset position
+        tree.style.left = `${centerX}px`;
+        tree.style.top = `${centerY}px`;
+
+        // Hide the zoom button
+        zoomBtn.style.display = "none";
+      }
+
+      // Close dropdown if clicked outside
+      window.onclick = function (event) {
+        if (!event.target.matches(".fa-bars")) {
+          const dropdowns = document.getElementsByClassName("dropdown-content");
+          for (let i = 0; i < dropdowns.length; i++) {
+            dropdowns[i].style.display = "none";
+          }
+        }
+        if (!event.target.matches("button") && !event.target.matches("i")) {
+          const infoPanel = document.getElementById("infoPanel");
+          infoPanel.classList.remove("show");
+          document.querySelector("button.selected")?.classList.remove("selected");
+          currentNode = null;
+        }
+      };
+
+      // Drag
+      dragElement(document.querySelector(".tree-container"));
+
+      function dragElement(container) {
+        // Get the inner ul element within tree-container to move it on drag
+        const elmnt = container.querySelector("ul");
+
+        let startX = 0,
+          startY = 0,
+          initialX = 0,
+          initialY = 0;
+
+        container.onmousedown = dragMouseDown;
+
+        function dragMouseDown(e) {
+          e = e || window.event;
+          e.preventDefault();
+
+          container.style.cursor = "grabbing";
+
+          // Record the initial cursor position and element position
+          startX = e.clientX;
+          startY = e.clientY;
+          initialX = elmnt.offsetLeft;
+          initialY = elmnt.offsetTop;
+
+          document.onmouseup = closeDragElement;
+          document.onmousemove = elementDrag;
+        }
+
+        function elementDrag(e) {
+          e = e || window.event;
+          e.preventDefault();
+
+          // Calculate the new cursor position
+          let deltaX = e.clientX - startX;
+          let deltaY = e.clientY - startY;
+
+          // Set the inner ul element's new position based on initial position and deltas
+          elmnt.style.position = "absolute"; // Ensure positioning is set
+          elmnt.style.left = initialX + deltaX + "px";
+          elmnt.style.top = initialY + deltaY + "px";
+        }
+
+        function closeDragElement() {
+          document.onmouseup = null;
+          document.onmousemove = null;
+
+          container.style.cursor = "grab";
+        }
+      }
+
+      function showTab(tabName) {
+        // Hide all tab content
+        document.querySelectorAll(".tab-content").forEach((tab) => (tab.style.display = "none"));
+        // Remove active class from all tabs
+        document.querySelectorAll(".tab").forEach((tab) => tab.classList.remove("active"));
+
+        // Show the selected tab content and add active class to the corresponding tab button
+        document.getElementById(`${tabName}Tab`).style.display = "block";
+        document.querySelector(`.tab[onclick="showTab('${tabName}')"]`).classList.add("active");
+      }
+
+      // Set default tab to show on load
+      showTab("description");
+    </script>
+  </body>
+</html>
