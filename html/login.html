@@ -21,8 +21,12 @@
           <label for="password">Password</label>
           <input type="password" id="password" name="password" placeholder="password" required />
         </div>
-        <button type="submit" class="F1-button"><a href="main.html">Login</a></button>
-        <button class="F2-button">Register</button>
+        <div class="form-group" id="regInput" style="display: none">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" placeholder="password" />
+        </div>
+        <button type="submit" class="F1-button">Login</button>
+        <button type="button" class="F2-button">Register</button>
       </form>
     </main>
 
@@ -32,5 +36,6 @@
     </footer>
 
     <script src="./js/footer.js"></script>
+    <script src="./js/login.js"></script>
   </body>
 </html>

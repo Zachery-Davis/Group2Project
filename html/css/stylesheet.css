@@ -322,8 +322,8 @@ form {
 .form-container {
   width: 40%; /* Ensure it uses the full width of its container */
   max-width: 800px;
-  height: 40%;
-  max-height: 600px;
+  height: auto;
+  min-height: 400px;
   padding: 2rem;
   border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 1);
