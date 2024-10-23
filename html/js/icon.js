@@ -1,3 +1,21 @@
+//HEADER
+
+// Dropdown Toggle
+function toggleDropdown() {
+  document.getElementById("dropdownMenu").classList.toggle("show");
+}
+
+// Close dropdown if clicked outside
+if (document.querySelector(".fa-bars")) {
+  window.addEventListener("click", (event) => {
+    if (!event.target.closest(".dropdown-content") && !event.target.matches("i")) {
+      document.getElementById("dropdownMenu").classList.remove("show");
+    }
+  });
+}
+
+//FOOTER
+
 // Reset zoom function
 function resetScale() {
   // Reset scale
