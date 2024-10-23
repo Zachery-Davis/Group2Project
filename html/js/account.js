@@ -1,11 +1,13 @@
 const sidebar = document.querySelector(".sidebar");
 
 sidebar.addEventListener("click", (event) => {
-  const tabName = event.target.innerText;
+  if (event.target.classList.contains("tablinks")) {
+    const tabName = event.target.innerText;
 
-  document.querySelector(".tablinks.selected").classList.remove("selected");
-  document.querySelector(".tabcontent.show").classList.remove("show");
+    document.querySelector(".tablinks.selected").classList.remove("selected");
+    document.querySelector(".tabcontent.show").classList.remove("show");
 
-  document.getElementById(tabName).classList.add("show");
-  event.target.classList.add("selected");
+    document.getElementById(tabName).classList.add("show");
+    event.target.classList.add("selected");
+  }
 });
