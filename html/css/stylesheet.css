@@ -1,0 +1,397 @@
+:root {
+  --white: #f8f8f8;
+  --lightGrey: #a3a3a3;
+  --midGrey: #7c7c7c;
+  --darkGrey: #333;
+  --black: black;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--white);
+  color: var(--darkGrey);
+  height: 100vh;
+  overflow-y: auto;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+main {
+  background-color: inherit;
+}
+
+/* Header and Footer Styling */
+header,
+footer {
+  position: fixed;
+  align-items: center;
+  background-color: transparent;
+  z-index: 10;
+  width: 100%;
+}
+
+header img {
+  margin: 0;
+  width: 50px;
+}
+
+header > *,
+footer i {
+  color: inherit;
+  font-size: 1.75vw;
+  cursor: pointer;
+  transition: opacity 0.3s, font-size 0.3s, color 0.3s;
+  z-index: 10;
+  position: fixed;
+}
+
+header > * {
+  top: 1.636vh;
+}
+
+header > a:first-of-type {
+  left: 1.567vw;
+}
+
+header > a:nth-child(2) {
+  right: 4.31vw;
+}
+
+header div {
+  right: 1.332vw;
+}
+
+header > *:hover,
+footer i:hover {
+  color: var(--midGrey);
+}
+
+footer {
+  bottom: 0;
+}
+
+footer i {
+  font-size: 1.75vw;
+  bottom: 1.636vh;
+  right: 1.567vw;
+}
+
+footer .fa-expand {
+  right: 4.31vw;
+  display: none;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: var(--white);
+  min-width: 150px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  border-radius: 5px;
+  transition: opacity 0.3s ease;
+}
+
+.dropdown-content a {
+  color: var(--black);
+  padding: 8px 16px;
+  text-decoration: none;
+  display: block;
+  font-weight: 600;
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+.dropdown-content a:hover {
+  background-color: var(--midGrey);
+}
+
+/* Dark mode */
+.dark-mode {
+  background-color: var(--darkGrey);
+  color: var(--white);
+}
+
+.questionnaire.form-container {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.questionnaire.form-container h2 {
+  padding-bottom: 30px;
+}
+
+.questionnaire.form-container button {
+  background-color: #4d9447;
+}
+
+/* Tree Diagram */
+.tree-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-origin: center;
+  transition: transform 0.3s ease;
+  cursor: grab;
+  overflow: hidden;
+}
+
+.tree button {
+  border: solid 0.1em var(--black);
+  border-radius: 0.2em;
+  background-color: inherit;
+  color: inherit;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 0.2em 0.5em;
+  padding: 0.2em 0.5em;
+  position: relative;
+  transition: background-color 0.3s;
+  white-space: nowrap;
+}
+
+.tree button:hover {
+  background-color: #b8b8b8;
+}
+
+.tree button.selected {
+  background-color: var(--midGrey);
+  transition: background-color 0.3s;
+}
+
+.tree,
+.tree ul,
+.tree li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.tree {
+  margin: 0 0 1em;
+  text-align: center;
+  position: fixed;
+  transform-origin: 0 0;
+}
+
+.tree,
+.tree ul {
+  display: table;
+}
+
+.tree ul {
+  width: 100%;
+}
+
+.tree li {
+  display: table-cell;
+  padding: 0.5em 0;
+  vertical-align: top;
+}
+
+/* _________ */
+.tree li:before {
+  outline: solid 1px var(--midGrey);
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.tree li:first-child:before {
+  left: 50%;
+}
+.tree li:last-child:before {
+  right: 50%;
+}
+
+/* | */
+.tree ul:before,
+.tree button:before {
+  outline: solid 1px var(--midGrey);
+  content: "";
+  height: 0.4em;
+  left: 50%;
+  position: absolute;
+}
+.tree ul:before {
+  top: -0.35em;
+  height: 0.289em;
+}
+.tree button:before {
+  top: -0.55em;
+}
+
+/* The root node doesn't connect upwards */
+.tree > li {
+  margin-top: 0;
+}
+.tree > li:before,
+.tree > li:after,
+.tree > li > button:before {
+  outline: none;
+}
+
+/* Information Panel */
+.info-panel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-top: 2px solid var(--black);
+  padding: 0 20px;
+  display: none;
+  height: 35%;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 5; /* Behind the header and footer */
+  transition: transform 0.3s ease;
+  background-color: inherit;
+}
+
+.show {
+  display: block;
+}
+
+.info-panel h3 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.info-panel p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.tab-container {
+  display: flex;
+  justify-content: flex-start;
+  border-bottom: 1px solid var(--black);
+  margin-bottom: 10px;
+}
+
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  background-color: inherit;
+  color: inherit;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.tab:hover {
+  background-color: #e0e0e0;
+}
+
+.tab.active {
+  border-bottom: 2px solid var(--black);
+}
+
+.tab-content {
+  display: none;
+}
+
+/* login page */
+.loginBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-size: 80px;
+  font-weight: bold;
+  margin: 0 0 60px 0;
+}
+
+form {
+  width: 80%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.form-container {
+  width: 40%; /* Ensure it uses the full width of its container */
+  max-width: 800px;
+  height: 40%;
+  max-height: 600px;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 1);
+  background-color: inherit;
+  z-index: 10;
+}
+
+.form-container h2 {
+  text-align: center;
+  margin: 1.5rem 0;
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input {
+  width: 100%; /* Make input fields take the full width of the container */
+  padding: 0.75rem;
+  border: 1px solid var(--lightGrey);
+  border-radius: 4px;
+  font-size: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 1);
+  box-sizing: border-box; /* Ensure padding doesn't overflow the width */
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--darkGrey);
+}
+
+.form-container button {
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: block;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 1);
+  color: inherit;
+  background-color: inherit;
+}
+
+.F1-button {
+  width: 60%; /* Full width for login button */
+  margin: 0 auto 1rem auto; /* Spacing between buttons */
+}
+
+.F2-button {
+  width: 40%; /* Smaller width for the register button */
+  margin: 0 auto; /* Center the register button */
+}
+
+.F1-button:hover,
+.F2-button:hover {
+  background-color: var(--midGrey);
+}
+
+img {
+  display: block;
+  margin: 2rem auto; /* Center the logo and add margin below it */
+  width: 75px; /* Adjust the width of the logo as needed */
+  height: auto;
+}
