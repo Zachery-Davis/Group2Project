@@ -43,10 +43,10 @@ window.addEventListener("wheel", (event) => {
   scale = Math.min(Math.max(0.75, scale + zoomFactor), 2.5);
 
   // Calculate the scaling adjustment
-  const scaleAdjustment = 1 - scale / oldScale;
+  // const scaleAdjustment = 1 - scale / oldScale;
 
-  translateX += (event.clientX - translateX) * scaleAdjustment;
-  translateY += (event.clientY - translateY) * scaleAdjustment;
+  // translateX += (event.clientX - translateX) * scaleAdjustment;
+  // translateY += (event.clientY - translateY) * scaleAdjustment;
 
   // Apply the transform with new scale and translation
   tree.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
