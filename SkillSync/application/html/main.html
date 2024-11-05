@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Main Page</title>
+    <link rel="stylesheet" href="./css/stylesheet.css" />
+    <script src="https://kit.fontawesome.com/b593ca79be.js" crossorigin="anonymous"></script>
+  </head>
+  <body class="dark-mode">
+    <header>
+      <a href="landing.html"><img src="./images/logo.png" alt="Logo" /></a>
+      <a href="profile.html" class="user-icon"><i class="fa-solid fa-user"></i></a>
+      <div class="dropdown">
+        <i class="fa-solid fa-bars" onclick="toggleDropdown()"></i>
+        <div class="dropdown-content" id="dropdownMenu">
+          <a href="#">Account</a>
+          <a href="main.html">Skill Tree</a>
+          <a href="#">Skill List</a>
+          <a href="login.html">Sign Out</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="form-container questionnaire">
+        <h2>Questionnaire</h2>
+        <form action="login" method="POST">
+          <div class="form-group">
+            <label for="answer">What is your future career?</label>
+            <input type="text" id="answer" name="answer" placeholder="Software Engineer" required />
+          </div>
+          <button type="submit" class="F2-button">Next</button>
+        </form>
+      </div>
+
+      <div class="tree-container">
+        <ul class="tree">
+          <li>
+            <button>Home</button>
+            <ul>
+              <li>
+                <button>About us</button>
+                <ul>
+                  <li>
+                    <button>Our history</button>
+                    <ul>
+                      <li>
+                        <button>Founder</button>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <button>Our board</button>
+                    <ul>
+                      <li>
+                        <button>Brad Whiteman</button>
+                      </li>
+                      <li>
+                        <button>Cynthia Tolken</button>
+                      </li>
+                      <li>
+                        <button>Bobby Founderson</button>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <button>Our products</button>
+                <ul>
+                  <li>
+                    <button>The Widget 2000™</button>
+                    <ul>
+                      <li>
+                        <button>Order form</button>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <button>The McGuffin V2</button>
+                    <ul>
+                      <li>
+                        <button>Order form</button>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <button>Contact us</button>
+                <ul>
+                  <li>
+                    <button>Social media</button>
+                    <ul>
+                      <li>
+                        <button>Facebook</button>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="info-panel">
+        <div class="tab-container">
+          <button class="tab" onclick="showTab('description')">Description</button>
+          <button class="tab" onclick="showTab('relatedSkills')">Related Skills</button>
+          <button class="tab" onclick="showTab('ai')">AI</button>
+        </div>
+        <div class="tab-content" id="descriptionTab">
+          <h3 id="infoTitle">Node Title</h3>
+          <p id="infoDescription">Node Description</p>
+        </div>
+        <div class="tab-content" id="relatedSkillsTab" style="display: none">
+          <h3>Related Skills</h3>
+          <p>Related skills content goes here.</p>
+        </div>
+        <div class="tab-content" id="aiTab" style="display: none">
+          <h3>AI</h3>
+          <p>AI-related content goes here.</p>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <i class="fa-solid fa-expand" onclick="resetScale()" title="Reset Zoom"></i>
+      <i class="fa-regular fa-lightbulb" onclick="toggleDarkMode()" title="Toggle Dark Mode"></i>
+    </footer>
+
+    <script src="./js/header.js" defer></script>
+    <script src="./js/main.js" defer></script>
+    <script src="./js/footer.js" defer></script>
+  </body>
+</html>
