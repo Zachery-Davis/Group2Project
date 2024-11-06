@@ -9,13 +9,13 @@
   </head>
   <body class="dark-mode">
     <header>
-      <a href="landing.html"><img src="./images/logo.png" alt="Logo" /></a>
+      <a href="dashboard.html"><img src="./images/logo.png" alt="Logo" /></a>
       <a href="profile.html" class="user-icon"> <img class="profile-img icon" src="./images/default user.png" alt="profile picture" /> </a>
       <div class="dropdown">
         <i class="fa-solid fa-bars" onclick="toggleDropdown()"></i>
         <div class="dropdown-content" id="dropdownMenu">
           <a href="account.html">Account</a>
-          <a href="main.html">Skill Tree</a>
+          <a href="dashboard.html">Skill Tree</a>
           <!-- <a href="#">Skill List</a> -->
           <a href="login.html">Sign Out</a>
         </div>
@@ -27,7 +27,7 @@
         <h2>Questionnaire</h2>
         <form action="login" method="POST">
           <div class="form-group">
-            <label for="answer">What is your future career goal?</label>
+            <label for="answer">What is your goal?</label>
             <input type="text" id="answer" name="answer" placeholder="Software Engineer" required />
           </div>
           <button class="F2-button" onclick="close()">Next</button>

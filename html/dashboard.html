@@ -3,11 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile</title>
+    <title>Document</title>
     <link rel="stylesheet" href="css/stylesheet.css" />
     <script src="https://kit.fontawesome.com/b593ca79be.js" crossorigin="anonymous"></script>
   </head>
-
   <body class="dark-mode">
     <header>
       <a href="dashboard.html"><img src="./images/logo.png" alt="Logo" /></a>
@@ -22,35 +21,14 @@
         </div>
       </div>
     </header>
-
-    <main>
-      <div class="profile-container">
-        <!-- Header Section -->
-        <div class="profile-section">
-          <h1>First Last</h1>
-          <img class="profile-img" src="./images/default user.png" alt="profile picture" />
-        </div>
-
-        <!-- Overview and Contact Section -->
-        <section class="main-section">
-          <div class="overview">
-            <h2>Overview</h2>
-            <p>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam. Neque porro quisquam est, qui
-              dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.
-            </p>
-          </div>
-
-          <div class="contact">
-            <h2>Contact</h2>
-            <p>Email: example@mail.com</p>
-            <p>Phone: 555-555-5555</p>
-            <p><a href="#">Linkedin</a></p>
-            <p><a href="#">Github</a></p>
-          </div>
-        </section>
-
-        <!-- Skill Cards Section -->
+    <main style="display: flex; height: 100vh; align-items: center">
+      <div class="sidebar">
+        <button class="tablinks selected">Overview</button>
+        <button class="tablinks">Edit Account</button>
+        <button class="tablinks">Notifications</button>
+        <button class="tablinks">Sign Out</button>
+      </div>
+      <div class="content">
         <section class="cards-section">
           <div class="card">
             <h3>CCI Skill Tree</h3>
@@ -69,14 +47,18 @@
             <p>Skill Tree representing the skills needed to apply and engage in applying for internships.</p>
             <button><a href="main.html">View Tree</a></button>
           </div>
+
+          <div class="card" style="box-shadow: 0 0 8px #4d9447">
+            <h3>Create New Tree</h3>
+            <p>Want to track more progress? Create another!</p>
+            <button style="background-color: #4d9447"><a href="main.html">Create Tree</a></button>
+          </div>
         </section>
       </div>
     </main>
-
     <footer>
       <i class="fa-regular fa-lightbulb" onclick="toggleDarkMode()" title="Toggle Dark Mode"></i>
     </footer>
-
     <script src="./js/icon.js" defer></script>
   </body>
 </html>

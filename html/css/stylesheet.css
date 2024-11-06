@@ -32,8 +32,8 @@ a {
 
 img {
   display: block;
-  margin: 2rem auto; /* Center the logo and add margin below it */
-  width: 75px; /* Adjust the width of the logo as needed */
+  margin: 2rem auto;
+  width: 75px;
   height: auto;
 }
 
@@ -540,17 +540,21 @@ footer .fa-expand {
 }
 
 .cards-section {
-  display: flex;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  justify-items: center;
 }
 
 .card {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
   border-radius: 12px;
-  width: 30%;
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
   transition: box-shadow 0.3s ease;
   margin: 10px;
@@ -576,6 +580,8 @@ footer .fa-expand {
   border-radius: 8px;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+  background-color: inherit;
+  color: inherit;
 }
 
 .card button:hover {
