@@ -22,3 +22,4 @@ def registerPage(request):
             messages.error(request, "Registration Has Failed!")
     context = {"form": form}
     return render(request, "register.html", context)
+                            
