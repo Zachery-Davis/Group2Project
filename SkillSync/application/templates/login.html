@@ -11,7 +11,7 @@
   </head>
   <body class="loginBody dark-mode">
     <a href="{% url 'landingPage' %}"><img src="{% static 'images/logo.png' %}" alt="Logo" /></a>
-    <h1 class="title">Skill Sync</h1>
+    <h1 class="title">SkillSync</h1>
     <main class="form-container">
       <h2>Login</h2>
       <form action="login" method="POST">
@@ -23,9 +23,13 @@
           <label for="password">Password</label>
           <input type="password" id="password" name="password" placeholder="password" required />
         </div>
-        <button type="submit" class="F1-button"><a href="main.html">Login</a></button>
+        <div class="form-group" id="regInput" style="display: none">
+          <label for="password">Verify Password</label>
+          <input type="password" id="password2" name="password2" placeholder="Verify Password" />
+        </div>
+        <button type="submit" class="F1-button">Login</button>
       </form>
-      <button class="F2-button"><a href="{% url 'registerPage' %}">Don't have an account? Register</a></button>
+      <button class="F2-button">Don't have an account? Register</button>
     </main>
 
     <footer>
@@ -33,6 +37,7 @@
       <i class="fa-regular fa-lightbulb" onclick="toggleDarkMode()" title="Toggle Dark Mode"></i>
     </footer>
 
+    <script src="{% static 'js/login.js' %}"></script>
     <script src="{% static 'js/footer.js' %}"></script>
   </body>
 </html>
