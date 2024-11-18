@@ -1,14 +1,16 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-    <link rel="stylesheet" href="./css/stylesheet.css" />
+    <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}" />
     <script src="https://kit.fontawesome.com/b593ca79be.js" crossorigin="anonymous"></script>
   </head>
   <body class="loginBody dark-mode">
-    <a href="landing.html"><img src="./images/logo.png" alt="Logo" /></a>
+    <a href="{% url 'landingPage' %}"><img src="{% static 'images/logo.png' %}" alt="Logo" /></a>
     <h1 class="title">Skill Sync</h1>
     <main class="form-container">
       <h2>Login</h2>
@@ -22,8 +24,8 @@
           <input type="password" id="password" name="password" placeholder="password" required />
         </div>
         <button type="submit" class="F1-button"><a href="main.html">Login</a></button>
-        <button class="F2-button">Register</button>
       </form>
+      <button class="F2-button"><a href="{% url 'registerPage' %}">Don't have an account? Register</a></button>
     </main>
 
     <footer>
@@ -31,6 +33,6 @@
       <i class="fa-regular fa-lightbulb" onclick="toggleDarkMode()" title="Toggle Dark Mode"></i>
     </footer>
 
-    <script src="./js/footer.js"></script>
+    <script src="{% static 'js/footer.js' %}"></script>
   </body>
 </html>

@@ -1,25 +1,40 @@
 from django.shortcuts import render, redirect
-from .form import MyUserCreationForm
+from .form import *
 from django.contrib.auth import login
 from django.contrib import messages
+from django.contrib.auth.forms import AuthenticationForm
 
 
-# Starting Page Of Application
+# Landing Page 
 def landingPage(request):
     context = {}
     return render(request, "landing.html", context)
 
+# Register Page 
 def registerPage(request):
-    form = MyUserCreationForm()
+    form = RegisterForm()
     if request.method == "POST":
-        form = MyUserCreationForm(request.POST)
+        form = RegisterForm(request.POST)
         if(form.is_valid()):
             user = form.save(commit=False)
             user.save()
             login(request, user)
-            return redirect("landingPage") # Will Be Home When Built
+            return redirect("landingPage") # Will Be Sent To Home Page After Home Page Is Built
         else:
-            messages.error(request, "Registration Has Failed!")
+            messages.error(request, "The confirmation password does not match the password you entered. Please try again.")
     context = {"form": form}
     return render(request, "register.html", context)
-                            
+
+# Login Page
+def loginPage(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect("landingPage") # Will Be Sent To Home Page After Home Page Is Built
+    else:
+        form = AuthenticationForm()
+        context = {}
+        messages.error(request, "Login failed. Ensure your credentials are correct and try again.")
+    return render(request, "login.html", context)
