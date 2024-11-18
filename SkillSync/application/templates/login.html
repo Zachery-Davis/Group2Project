@@ -14,7 +14,8 @@
     <h1 class="title">SkillSync</h1>
     <main class="form-container">
       <h2>Login</h2>
-      <form action="login" method="POST">
+      <form action="{% url 'dashboardPage' %}" method="POST">
+        {% csrf_token %}
         <div class="form-group">
           <label for="email">Email</label>
           <input type="text" id="email" name="email" placeholder="example@mail.com" required />

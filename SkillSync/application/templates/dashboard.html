@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/stylesheet.css" />
+    <script src="https://kit.fontawesome.com/b593ca79be.js" crossorigin="anonymous"></script>
+  </head>
+  <body class="dark-mode">
+    <header>
+      <a href="dashboard.html"><img src="./images/logo.png" alt="Logo" /></a>
+      <a href="profile.html" class="user-icon"> <img class="profile-img icon" src="./images/default user.png" alt="profile picture" /> </a>
+      <div class="dropdown">
+        <i class="fa-solid fa-bars" onclick="toggleDropdown()"></i>
+        <div class="dropdown-content" id="dropdownMenu">
+          <a href="account.html">Account</a>
+          <a href="dashboard.html">Skill Tree</a>
+          <!-- <a href="#">Skill List</a> -->
+          <a href="login.html">Sign Out</a>
+        </div>
+      </div>
+    </header>
+    <main style="display: flex; height: 100vh; align-items: center">
+      <div class="sidebar">
+        <button class="tablinks selected">Overview</button>
+        <button class="tablinks">Edit Account</button>
+        <button class="tablinks">Notifications</button>
+        <button class="tablinks">Sign Out</button>
+      </div>
+      <div class="content">
+        <section class="cards-section">
+          <div class="card">
+            <h3>CCI Skill Tree</h3>
+            <p>Skill Tree representing the skills needed to succeed in Computer Science.</p>
+            <button><a href="main.html">View Tree</a></button>
+          </div>
+
+          <div class="card">
+            <h3>Entrepreneur Skill Tree</h3>
+            <p>Skill Tree representing the skills needed to strengthen and improve on your entrepreneurship.</p>
+            <button><a href="main.html">View Tree</a></button>
+          </div>
+
+          <div class="card">
+            <h3>Internship Skill Tree</h3>
+            <p>Skill Tree representing the skills needed to apply and engage in applying for internships.</p>
+            <button><a href="main.html">View Tree</a></button>
+          </div>
+
+          <div class="card" style="box-shadow: 0 0 8px #4d9447">
+            <h3>Create New Tree</h3>
+            <p>Want to track more progress? Create another!</p>
+            <button style="background-color: #4d9447"><a href="main.html">Create Tree</a></button>
+          </div>
+        </section>
+      </div>
+    </main>
+    <footer>
+      <i class="fa-regular fa-lightbulb" onclick="toggleDarkMode()" title="Toggle Dark Mode"></i>
+    </footer>
+    <script src="./js/icon.js" defer></script>
+  </body>
+</html>

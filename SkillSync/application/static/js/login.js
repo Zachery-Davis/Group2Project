@@ -23,7 +23,7 @@ document.querySelector("form").addEventListener("submit", function (event) {
   // If the form is set to "register", ensure both passwords match
   if (formAction === "register") {
     const password = document.getElementById("password");
-    const confirmPassword = document.getElementById("confirmPassword");
+    const confirmPassword = document.getElementById("password2");
 
     if (password.value !== confirmPassword.value) {
       event.preventDefault(); // Stop form submission
