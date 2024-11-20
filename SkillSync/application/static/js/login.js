@@ -5,12 +5,11 @@ const f1Button = document.querySelector(".F1-button");
 const f2Button = document.querySelector(".F2-button");
 
 f2Button.addEventListener("click", (event) => {
-  const isLogin = form.getAttribute("action") === "login";
+  const isLogin = f1Button.innerText === "Login";
 
   // Toggle between login and register states
   regInput.style.display = isLogin ? "block" : "none";
   confirmPassword.required = isLogin;
-  form.setAttribute("action", isLogin ? "register" : "login");
   f1Button.innerText = isLogin ? "Register" : "Login";
   f2Button.innerText = isLogin ? "Login" : "Don't have an account? Register";
   document.querySelector("h2").innerText = isLogin ? "Register" : "Login";
