@@ -2,3 +2,4 @@
 *.pyc
 Design Sprint Day 3/.DS_Store
 *.sqlite3
+SkillSync/venv/pyvenv.cfg

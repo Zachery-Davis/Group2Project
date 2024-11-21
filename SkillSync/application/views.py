@@ -40,3 +40,23 @@ def loginPage(request):
     else:
         form = AuthenticationForm()
     return render(request, "login.html", context)
+
+# Dashboard Page 
+def dashboardPage(request):
+    context = {}
+    return render(request, "dashboard.html", context)
+
+# Main Page 
+def mainPage(request):
+    context = {}
+    return render(request, "main.html", context)
+
+# Account Page 
+def accountPage(request):
+    context = {}
+    return render(request, "account.html", context)
+
+# profile Page 
+def profilePage(request):
+    context = {}
+    return render(request, "profile.html", context)
