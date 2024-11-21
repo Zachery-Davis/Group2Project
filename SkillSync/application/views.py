@@ -12,7 +12,6 @@ def landingPage(request):
 
 # Register Page 
 def registerPage(request):
-    form = RegisterForm()
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if(form.is_valid()):
@@ -22,19 +21,22 @@ def registerPage(request):
             return redirect("landingPage") # Will Be Sent To Home Page After Home Page Is Built
         else:
             messages.error(request, "The confirmation password does not match the password you entered. Please try again.")
-    context = {"form": form}
-    return render(request, "register.html", context)
+    else:
+        form = RegisterForm()
+    context = {"type": "register"}
+    return render(request, "login.html", context)
 
 # Login Page
 def loginPage(request):
+    context = {"type": "login"}
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)
             return redirect("landingPage") # Will Be Sent To Home Page After Home Page Is Built
+        else:
+            messages.error(request, "Login failed. Ensure your credentials are correct and try again.")
     else:
         form = AuthenticationForm()
-        context = {}
-        messages.error(request, "Login failed. Ensure your credentials are correct and try again.")
     return render(request, "login.html", context)
