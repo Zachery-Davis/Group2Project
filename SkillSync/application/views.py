@@ -27,6 +27,7 @@ def registerPage(request):
 
 # Login Page
 def loginPage(request):
+    context = {}
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
@@ -35,6 +36,25 @@ def loginPage(request):
             return redirect("landingPage") # Will Be Sent To Home Page After Home Page Is Built
     else:
         form = AuthenticationForm()
-        context = {}
         messages.error(request, "Login failed. Ensure your credentials are correct and try again.")
     return render(request, "login.html", context)
+
+# Dashboard Page 
+def dashboardPage(request):
+    context = {}
+    return render(request, "dashboard.html", context)
+
+# Main Page 
+def mainPage(request):
+    context = {}
+    return render(request, "main.html", context)
+
+# Account Page 
+def accountPage(request):
+    context = {}
+    return render(request, "account.html", context)
+
+# profile Page 
+def profilePage(request):
+    context = {}
+    return render(request, "profile.html", context)

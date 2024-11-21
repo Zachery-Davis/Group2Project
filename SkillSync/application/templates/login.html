@@ -14,7 +14,7 @@
     <h1 class="title">SkillSync</h1>
     <main class="form-container">
       <h2>Login</h2>
-      <form action="{% url 'landingPage' %}" method="POST">
+      <form action="{% url 'dashboardPage' %}" method="POST">
         {% csrf_token %}
         <div class="form-group">
           <label for="email">Email</label>
@@ -38,7 +38,7 @@
       <i class="fa-regular fa-lightbulb" onclick="toggleDarkMode()" title="Toggle Dark Mode"></i>
     </footer>
 
-    <script src="{% static 'js/login.js' %}"></script>
-    <script src="{% static 'js/footer.js' %}"></script>
+    <script src="{% static 'js/login.js' %}" defer></script>
+    <script src="{% static 'js/footer.js' %}" defer></script>
   </body>
 </html>

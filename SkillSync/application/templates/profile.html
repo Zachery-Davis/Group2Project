@@ -127,19 +127,7 @@
   </head>
 
   <body class="dark-mode">
-<header>
-    <a href="{% url 'landingPage' %}"><img src="{% static 'images/logo.png' %}" alt="Logo" /></a>
-    <a href="{% url 'profile' %}" class="user-icon"><i class="fa-solid fa-user"></i></a>
-    <div class="dropdown">
-      <i class="fa-solid fa-bars" onclick="toggleDropdown()"></i>
-      <div class="dropdown-content" id="dropdownMenu">
-        <a href="#">Account</a>
-        <a href="main.html">Skill Tree</a>
-        <a href="#">Skill List</a>
-        <a href="login.html">Sign Out</a>
-      </div>
-    </div>
-  </header>
+    {% include 'header.html' %}
 
     <main>
       <div class="profile-container">
@@ -195,7 +183,6 @@
       <i class="fa-regular fa-lightbulb" onclick="toggleDarkMode()" title="Toggle Dark Mode"></i>
     </footer>
 
-    <script src="./js/header.js" defer></script>
-    <script src="./js/footer.js" defer></script>
+    <script src="{% static 'js/icon.js' %}" defer></script>
   </body>
 </html>
