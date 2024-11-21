@@ -1,0 +1,60 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{type}}</title>
+    <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}" />
+    <script src="https://kit.fontawesome.com/b593ca79be.js" crossorigin="anonymous"></script>
+  </head>
+  <body class="loginBody dark-mode">
+    <a href="{% url 'landingPage' %}"><img src="{% static 'images/logo.png' %}" alt="Logo" /></a>
+    <h1 class="title">SkillSync</h1>
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    <main class="form-container">
+      {% if page == "login" %}
+      <h2>Login</h2>
+      <form action="" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" id="email" name="username" placeholder="example@mail.com" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="password" required />
+        </div>
+        <button type="submit" class="F1-button">Login</button>
+      </form>
+      <a href="{% url 'registerPage' %}" class="F2-button">Don't have an account? Register</a>
+      {% else %}
+      <h2>Register</h2>
+      <form action="" method="POST">
+        {% csrf_token %} {% for field in form %}
+        <div class="form-group">
+          <label for="{{field.label}}">{{field.label}}</label>
+          {{field}}
+        </div>
+        {% endfor %}
+
+        <button type="submit" class="F1-button">Submit</button>
+      </form>
+      <a href="{% url 'loginPage' %}" class="F2-button">Already have an account? Register</a>
+    </main>
+
+    <footer>
+      <i class="fa-regular fa-lightbulb" onclick="toggleDarkMode()" title="Toggle Dark Mode"></i>
+    </footer>
+
+    <script src="{% static 'js/icon.js' %}" defer></script>
+    {% endif %}
+  </body>
+</html>

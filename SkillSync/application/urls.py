@@ -20,10 +20,13 @@ from . import views
 
 urlpatterns = [
     path("", views.landingPage, name="landingPage"),
+    
     path("register/", views.registerPage, name="registerPage"),
     path("login/", views.loginPage, name="loginPage"),
+    path("logout/", views.logoutUser, name="logout"),
+    
     path("dashboard/", views.dashboardPage, name="dashboardPage"),
-    path("main/", views.mainPage, name="mainPage"),
+    path("tree/", views.treePage, name="treePage"),
     path("account/", views.accountPage, name="accountPage"),
     path("profile/", views.profilePage, name="profilePage"),
 ]

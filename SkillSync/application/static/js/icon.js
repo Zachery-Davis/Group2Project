@@ -18,6 +18,9 @@ if (document.querySelector(".fa-bars")) {
 
 // Reset zoom function
 function resetScale() {
+  const tree = document.querySelector(".tree");
+  const zoomBtn = document.querySelector(".fa-expand");
+
   // Reset scale
   scale = 1;
   tree.style.transform = `scale(1)`;
