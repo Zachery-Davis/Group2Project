@@ -68,3 +68,14 @@ def accountPage(request):
 def profilePage(request):
     context = {}
     return render(request, "profile.html", context)
+
+def register(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  # Log the user in after registration
+            return redirect('home')  # Redirect to a success page
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'register.html', {'form': form})
