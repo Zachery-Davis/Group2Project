@@ -1,4 +1,4 @@
-{% extends 'main.html' %} {% block content%}
+{% extends 'main.html' %} {% block content%} {% include 'header.html' %}
 <main style="display: flex; height: 100vh; align-items: center">
   <div class="sidebar">
     <button class="tablinks selected">Overview</button>
@@ -11,25 +11,25 @@
       <div class="card">
         <h3>CCI Skill Tree</h3>
         <p>Skill Tree representing the skills needed to succeed in Computer Science.</p>
-        <button><a href="{% url 'treePage' %}">View Tree</a></button>
+        <a href="{% url 'treePage' %}">View Tree</a>
       </div>
 
       <div class="card">
         <h3>Entrepreneur Skill Tree</h3>
         <p>Skill Tree representing the skills needed to strengthen and improve on your entrepreneurship.</p>
-        <button><a href="{% url 'treePage' %}">View Tree</a></button>
+        <a href="{% url 'treePage' %}">View Tree</a>
       </div>
 
       <div class="card">
         <h3>Internship Skill Tree</h3>
         <p>Skill Tree representing the skills needed to apply and engage in applying for internships.</p>
-        <button><a href="{% url 'treePage' %}">View Tree</a></button>
+        <a href="{% url 'treePage' %}">View Tree</a>
       </div>
 
       <div class="card" style="box-shadow: 0 0 8px #4d9447">
         <h3>Create New Tree</h3>
         <p>Want to track more progress? Create another!</p>
-        <button style="background-color: #4d9447"><a href="{% url 'treePage' %}">Create Tree</a></button>
+        <a href="{% url 'treePage' %}" style="background-color: #4d9447">Create Tree</a>
       </div>
     </section>
   </div>

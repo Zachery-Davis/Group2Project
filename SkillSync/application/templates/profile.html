@@ -1,188 +1,55 @@
-{% load static %}
+{% extends 'main.html' %} {% load static %} {% block content%} {% include 'header.html' %}
+<main class="profile-main">
+  <div class="profile-container">
+    <!-- Header Section -->
+    <div class="profile-header">
+      <h1>First Last</h1>
+      <img class="profile-img" src="{% static 'images/default user.png' %}" alt="profile picture" />
+    </div>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile Page</title>
-    <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}" />
-    <script src="https://kit.fontawesome.com/b593ca79be.js" crossorigin="anonymous"></script>
-    <style>
-      main {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-      }
-
-      .profile-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 40px;
-      }
-
-      .profile-header h1 {
-        font-size: 48px;
-        font-weight: 700;
-        width: 70%;
-      }
-
-      .main-section {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 60px;
-      }
-
-      .main-section > div {
-        padding: 20px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
-        border-radius: 10px;
-      }
-
-      .main-section > div:hover {
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 1);
-      }
-
-      .overview {
-        width: 60%;
-      }
-
-      .contact {
-        width: 30%;
-      }
-
-      .overview h2,
-      .contact h2 {
-        font-size: 24px;
-        margin-bottom: 20px;
-      }
-
-      .overview p {
-        font-size: 16px;
-        line-height: 1.5;
-      }
-
-      .contact p {
-        font-size: 16px;
-        margin-bottom: 10px;
-      }
-
-      .cards-section {
-        display: flex;
-      }
-
-      .card {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
-        border-radius: 12px;
-        width: 30%;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        transition: box-shadow 0.3s ease;
-        margin: 10px;
-      }
-
-      .card:hover {
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 1);
-      }
-
-      .card h3 {
-        font-size: 20px;
-        margin-bottom: 10px;
-      }
-
-      .card p {
-        font-size: 14px;
-        margin-bottom: 20px;
-      }
-
-      button {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
-      }
-
-      button:hover {
-        background-color: var(--midGrey);
-      }
-
-      .profile-container {
-        padding: 40px 80px;
-      }
-
-      .profile-img {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        border: 3px solid var(--black);
-        padding: 5px;
-        object-fit: cover;
-      }
-    </style>
-  </head>
-
-  <body class="dark-mode">
-    {% include 'header.html' %}
-
-    <main>
-      <div class="profile-container">
-        <!-- Header Section -->
-        <div class="profile-header">
-          <h1>First Last</h1>
-          <img class="profile-img" src="{% static 'images/default user.png' %}" alt="profile picture" />
-        </div>
-
-        <!-- Overview and Contact Section -->
-        <section class="main-section">
-          <div class="overview">
-            <h2>Overview</h2>
-            <p>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam. Neque porro quisquam est, qui
-              dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.
-            </p>
-          </div>
-
-          <div class="contact">
-            <h2>Contact</h2>
-            <p>Email: example@mail.com</p>
-            <p>Phone: 555-555-5555</p>
-            <p><a href="#">Linkedin</a></p>
-            <p><a href="#">Github</a></p>
-          </div>
-        </section>
-
-        <!-- Skill Cards Section -->
-        <section class="cards-section">
-          <div class="card">
-            <h3>CCI Skill Tree</h3>
-            <p>Skill Tree representing the skills needed to succeed in Computer Science.</p>
-            <button>View Tree?</button>
-          </div>
-
-          <div class="card">
-            <h3>Entrepreneur Skill Tree</h3>
-            <p>Skill Tree representing the skills needed to strengthen and improve on your entrepreneurship.</p>
-            <button>View Tree?</button>
-          </div>
-
-          <div class="card">
-            <h3>Internship Skill Tree</h3>
-            <p>Skill Tree representing the skills needed to apply and engage in applying for internships.</p>
-            <button>View Tree?</button>
-          </div>
-        </section>
+    <!-- Overview and Contact Section -->
+    <section class="main-section">
+      <div class="overview">
+        <h2>Overview</h2>
+        <p>
+          Sed ut perspiciatis unde omnis iste natus error sit voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam. Neque porro quisquam est, qui
+          dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.
+        </p>
       </div>
-    </main>
 
-    <footer>
-      <i class="fa-regular fa-lightbulb" onclick="toggleDarkMode()" title="Toggle Dark Mode"></i>
-    </footer>
+      <div class="contact">
+        <h2>Contact</h2>
+        <p>Email: example@mail.com</p>
+        <p>Phone: 555-555-5555</p>
+        <p><a href="#">Linkedin</a></p>
+        <p><a href="#">Github</a></p>
+      </div>
+    </section>
 
-    <script src="{% static 'js/icon.js' %}" defer></script>
-  </body>
-</html>
+    <!-- Skill Cards Section -->
+    <section class="cards-section">
+      <div class="card">
+        <h3>CCI Skill Tree</h3>
+        <p>Skill Tree representing the skills needed to succeed in Computer Science.</p>
+        <a href="{% url 'treePage' %}">View Tree?</a>
+      </div>
+
+      <div class="card">
+        <h3>Entrepreneur Skill Tree</h3>
+        <p>Skill Tree representing the skills needed to strengthen and improve on your entrepreneurship.</p>
+        <a href="{% url 'treePage' %}">View Tree?</a>
+      </div>
+
+      <div class="card">
+        <h3>Internship Skill Tree</h3>
+        <p>Skill Tree representing the skills needed to apply and engage in applying for internships.</p>
+        <a href="{% url 'treePage' %}">View Tree?</a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <i class="fa-regular fa-lightbulb" onclick="toggleDarkMode()" title="Toggle Dark Mode"></i>
+</footer>
+{% endblock content%}

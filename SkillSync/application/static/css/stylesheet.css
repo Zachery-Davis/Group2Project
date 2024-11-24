@@ -1,3 +1,5 @@
+/* General Formatting */
+
 :root {
   --white: #ffffff;
   --lightGrey: #a3a3a3;
@@ -13,12 +15,6 @@ body {
   color: var(--darkGrey);
   overflow-y: auto;
   transition: background-color 0.3s, color 0.3s;
-}
-
-/* Dark mode */
-.dark-mode {
-  background-color: var(--darkGrey);
-  color: var(--white);
 }
 
 main {
@@ -41,7 +37,13 @@ form {
   width: 80%;
 }
 
-/* LOGIN PAGE */
+/* Dark mode */
+.dark-mode {
+  background-color: var(--darkGrey);
+  color: var(--white);
+}
+
+/* LoginPage */
 
 .loginBody {
   display: flex;
@@ -49,13 +51,14 @@ form {
   align-items: center;
 }
 
-.title {
+.loginBody .title {
   font-size: 80px;
   font-weight: bold;
   margin: 0 0 60px 0;
 }
 
 /* Header and Footer Styling */
+
 header,
 footer {
   display: flex;
@@ -172,9 +175,47 @@ footer .fa-expand {
   background-color: #4d9447;
 }
 
-/* MAIN */
+/* LandingPage */
 
-/* Tree Diagram */
+.container {
+  text-align: center;
+}
+
+.logo {
+  width: 330px;
+  margin: 40px auto;
+}
+
+.title {
+  font-size: 96px;
+  font-weight: bold;
+  color: var(--lightGrey);
+  margin: 20px;
+}
+
+.subtitle {
+  font-size: 24px;
+  color: var(--midGrey);
+  margin-bottom: 60px;
+}
+
+.login-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #111;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: var(--black);
+}
+
+/* TreePage */
+
 .tree-container {
   position: fixed;
   width: 100%;
@@ -340,6 +381,7 @@ footer .fa-expand {
   display: none;
 }
 
+/* Question Form */
 .form-container {
   width: 40%;
   max-width: 800px;
@@ -419,7 +461,7 @@ footer .fa-expand {
   background-color: var(--midGrey);
 }
 
-/* ACCOUNT */
+/* AccountPage */
 
 .account-page {
   width: 100%;
@@ -484,7 +526,20 @@ footer .fa-expand {
   resize: none;
 }
 
-/* PROFILE */
+/* ProfilePage */
+.profile-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  font-size: 32px;
+}
 
 .profile-section {
   display: flex;
@@ -539,6 +594,23 @@ footer .fa-expand {
   margin-bottom: 10px;
 }
 
+.profile-container {
+  padding: 40px 80px;
+}
+
+.profile-img {
+  width: 100px;
+  height: 100px;
+  background-color: var(--darkGrey);
+  border-radius: 50%;
+  border: 3px solid var(--black);
+  padding: 5px;
+  object-fit: cover;
+  margin: 0;
+}
+
+/* DashboardPage */
+
 .cards-section {
   display: grid;
   width: 100%;
@@ -574,7 +646,7 @@ footer .fa-expand {
   margin-bottom: 20px;
 }
 
-.card button {
+.card a {
   padding: 10px 20px;
   border: none;
   border-radius: 8px;
@@ -584,25 +656,11 @@ footer .fa-expand {
   color: inherit;
 }
 
-.card button:hover {
+.card a:hover {
   background-color: var(--midGrey);
 }
 
-.profile-container {
-  padding: 40px 80px;
-}
-
-.profile-img {
-  width: 100px;
-  height: 100px;
-  background-color: var(--darkGrey);
-  border-radius: 50%;
-  border: 3px solid var(--black);
-  padding: 5px;
-  object-fit: cover;
-}
-
-/* At bottom to increase priority */
+/* Overwrites */
 
 .selected {
   filter: invert(25%) !important;

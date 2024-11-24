@@ -47,4 +47,13 @@ function resetScale() {
 // Dark Mode Toggle
 function toggleDarkMode() {
   document.body.classList.toggle("dark-mode");
+  const isDarkMode = document.body.classList.contains("dark-mode");
+  localStorage.setItem("darkMode", isDarkMode);
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Apply saved theme
+  if (localStorage.getItem("darkMode") === "false") {
+    document.body.classList.remove("dark-mode");
+  }
+});

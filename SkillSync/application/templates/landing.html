@@ -1,59 +1,8 @@
-{% load static %}
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SkillSync</title>
-    <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}" />
-    <style>
-      /* styles.css */
-      .container {
-        text-align: center;
-      }
-
-      .logo {
-        width: 330px;
-        margin: 40px auto;
-      }
-
-      .title {
-        font-size: 96px;
-        font-weight: bold;
-        color: var(--lightGrey);
-        margin: 20px;
-      }
-
-      .subtitle {
-        font-size: 24px;
-        color: var(--midGrey);
-        margin-bottom: 60px;
-      }
-
-      .login-button {
-        padding: 10px 20px;
-        font-size: 1rem;
-        color: #fff;
-        background-color: #111;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
-
-      .login-button:hover {
-        background-color: var(--black);
-      }
-    </style>
-  </head>
-  <body class="dark-mode">
-    <div class="container">
-      <img src="{% static 'images/logo.png' %}" alt="Skill Sync Logo" class="logo" />
-      <h1 class="title">SkillSync</h1>
-      <p class="subtitle">"Goals, one skill at a time"</p>
-      <a class="login-button" href="{% url 'loginPage' %}">Login</a>
-    </div>
-  </body>
-</html>
+{% extends 'main.html' %} {% load static %} {% block content%}
+<div class="container">
+  <img src="{% static 'images/logo.png' %}" alt="Skill Sync Logo" class="logo" />
+  <h1 class="title">SkillSync</h1>
+  <p class="subtitle">"Goals, one skill at a time"</p>
+  <a class="login-button" href="{% url 'loginPage' %}">Login</a>
+</div>
+{% endblock content%}

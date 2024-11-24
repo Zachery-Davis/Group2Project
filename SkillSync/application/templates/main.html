@@ -5,12 +5,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SkillSync</title>
+    <link rel="icon" href="../static/images/logoIcon.png" type="image/png" />
     <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}" />
     <script src="https://kit.fontawesome.com/b593ca79be.js" crossorigin="anonymous"></script>
   </head>
 
   <body class="dark-mode">
-    {% include 'header.html' %} {% if messages %}
+    {% if messages %}
     <ul class="messages">
       {% for message in messages %}
       <li>{{ message }}</li>
@@ -19,7 +20,6 @@
     {% endif %} {% block content %} {% endblock %}
 
     <script src="{% static 'js/icon.js' %}" defer></script>
-    <script src="{% static 'js/account.js' %}" defer></script>
     <script src="{% static 'js/main.js' %}" defer></script>
   </body>
 </html>
