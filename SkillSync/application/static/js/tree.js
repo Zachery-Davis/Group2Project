@@ -1,15 +1,16 @@
-// Close dropdown if clicked outside
-window.addEventListener("click", (event) => {
-  if (!event.target.matches("button") && !event.target.matches("i")) {
-    document.querySelectorAll(".show")?.forEach((element) => {
-      element.classList.remove("show");
-    });
-    document.querySelector("button.selected")?.classList.remove("selected");
-    currentNode = null;
-  }
-});
+// TreePage
+if (document.querySelector(".tree")) {
+  // Close dropdown if clicked outside
+  window.addEventListener("click", (event) => {
+    if (!event.target.matches("button") && !event.target.matches("i")) {
+      document.querySelectorAll(".show")?.forEach((element) => {
+        element.classList.remove("show");
+      });
+      document.querySelector("button.selected")?.classList.remove("selected");
+      currentNode = null;
+    }
+  });
 
-if (document.querySelector(".tree") !== null) {
   let currentNode = null;
   document.querySelectorAll(".tree button").forEach((button) => {
     button.addEventListener("click", (event) => {

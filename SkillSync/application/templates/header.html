@@ -1,7 +1,9 @@
 {% load static %}
 <header>
-  <a href="{% url 'dashboardPage' %}"><img src="{% static './images/logo.png' %}" alt="Logo" /></a>
-  <a href="{% url 'profilePage' %}" class="user-icon"> <img class="profile-img icon" src="{% static './images/default user.png' %}" alt="profile picture" /> </a>
+  <a href="{% url 'dashboardPage' %}"><img src="{% static 'images/logo.png' %}" alt="Logo" /></a>
+  <a href="{% url 'profilePage' %}" class="user-icon">
+    <img class="profile-img" src="{{ user.avatar.url }}" alt="profile picture" />
+  </a>
   <div class="dropdown">
     <i class="fa-solid fa-bars" onclick="toggleDropdown()"></i>
     <div class="dropdown-content" id="dropdownMenu">

@@ -1,28 +1,34 @@
-{% extends 'main.html' %} {% load static %} {% block content%} {% include 'header.html' %}
+{% extends 'main.html' %} {% block content%} {% include 'header.html' %}
 <main class="profile-main">
   <div class="profile-container">
     <!-- Header Section -->
     <div class="profile-header">
-      <h1>First Last</h1>
-      <img class="profile-img" src="{% static 'images/default user.png' %}" alt="profile picture" />
+      <div>
+        <h1>{{user.username}}</h1>
+        {% if request.user == user %}
+        <a href="{% url 'profilePage' %}" class="F2-button">Edit Profile</a>
+        {% endif %}
+      </div>
+      <img class="profile-img" src="{{ user.avatar.url }}" alt="profile picture" />
     </div>
 
     <!-- Overview and Contact Section -->
     <section class="main-section">
       <div class="overview">
         <h2>Overview</h2>
-        <p>
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam. Neque porro quisquam est, qui
-          dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.
-        </p>
+        <p>{{user.bio}}</p>
       </div>
 
       <div class="contact">
         <h2>Contact</h2>
-        <p>Email: example@mail.com</p>
-        <p>Phone: 555-555-5555</p>
-        <p><a href="#">Linkedin</a></p>
-        <p><a href="#">Github</a></p>
+        <p>Email: {{user.email}}</p>
+        {% if user.phoneNumber %}
+        <p>Phone: {{ user.phoneNumber }}</p>
+        {% endif %} {% if user.Linkedin %}
+        <p><a href="https://www.linkedin.com/in/{{ user.Linkedin }}" target="_blank" rel="noopener noreferrer">Linkedin</a></p>
+        {% endif %} {% if user.Github %}
+        <p><a href="https://github.com/{{ user.Github }}" target="_blank" rel="noopener noreferrer">Github</a></p>
+        {% endif %}
       </div>
     </section>
 
@@ -31,19 +37,19 @@
       <div class="card">
         <h3>CCI Skill Tree</h3>
         <p>Skill Tree representing the skills needed to succeed in Computer Science.</p>
-        <a href="{% url 'treePage' %}">View Tree?</a>
+        <a href="{% url 'treePage' %}">View Tree</a>
       </div>
 
       <div class="card">
         <h3>Entrepreneur Skill Tree</h3>
         <p>Skill Tree representing the skills needed to strengthen and improve on your entrepreneurship.</p>
-        <a href="{% url 'treePage' %}">View Tree?</a>
+        <a href="{% url 'treePage' %}">View Tree</a>
       </div>
 
       <div class="card">
         <h3>Internship Skill Tree</h3>
         <p>Skill Tree representing the skills needed to apply and engage in applying for internships.</p>
-        <a href="{% url 'treePage' %}">View Tree?</a>
+        <a href="{% url 'treePage' %}">View Tree</a>
       </div>
     </section>
   </div>
