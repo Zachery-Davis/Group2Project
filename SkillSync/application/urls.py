@@ -29,4 +29,5 @@ urlpatterns = [
     path("tree/", views.treePage, name="treePage"),
     path("account/", views.accountPage, name="accountPage"),
     path("profile/", views.profilePage, name="profilePage"),
+    path("updateUser/", views.updateUser, name="updateUser"),
 ]

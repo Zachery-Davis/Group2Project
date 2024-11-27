@@ -11,13 +11,13 @@
   </head>
 
   <body class="dark-mode">
-    {% if messages %}
+    {% block content %} {% endblock %} {% if messages %}
     <ul class="messages">
       {% for message in messages %}
       <li>{{ message }}</li>
       {% endfor %}
     </ul>
-    {% endif %} {% block content %} {% endblock %}
+    {% endif %}
 
     <script src="{% static 'js/icon.js' %}" defer></script>
   </body>

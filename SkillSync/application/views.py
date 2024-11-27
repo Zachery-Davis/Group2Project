@@ -3,6 +3,7 @@ from .form import *
 from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
 
 
 # Landing Page 
@@ -54,7 +55,7 @@ def dashboardPage(request):
     context = {}
     return render(request, "dashboard.html", context)
 
-# tree Page 
+# Tree Page 
 def treePage(request):
     context = {}
     return render(request, "tree.html", context)
@@ -64,7 +65,35 @@ def accountPage(request):
     context = {}
     return render(request, "account.html", context)
 
-# profile Page 
+# Profile Page 
 def profilePage(request):
     context = {}
     return render(request, "profile.html", context)
+
+# Update User Page 
+@login_required(login_url="login")
+def updateUser(request):
+    if request.method == 'POST':
+        form = UserForm(request.POST, request.FILES)
+        if form.is_valid():
+            if form.cleaned_data['username']:
+                request.user.username = form.cleaned_data['username']
+            if form.cleaned_data['email']:
+                request.user.email = form.cleaned_data['email']
+            if form.cleaned_data['password']:
+                request.user.set_password(form.cleaned_data['password'])
+            if form.cleaned_data.get('first_name'):
+                request.user.first_name = form.cleaned_data['first_name']
+            if form.cleaned_data.get('last_name'):
+                request.user.last_name = form.cleaned_data['last_name']
+            if form.cleaned_data['avatar']:
+                request.user.avatar = form.cleaned_data['avatar']
+            if form.cleaned_data['bio']:
+                request.user.bio = form.cleaned_data['bio']
+                
+            request.user.save()
+            return redirect('profilePage')
+    else:
+        form = UserForm()
+    context = {'form': form}
+    return render(request, "update-user.html", context)

@@ -4,9 +4,13 @@
     <!-- Header Section -->
     <div class="profile-header">
       <div>
-        <h1>{{user.username}}</h1>
-        {% if request.user == user %}
-        <a href="{% url 'profilePage' %}" class="F2-button">Edit Profile</a>
+        {% if user.first_name %}
+        <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+        <h2 class="username">@{{ user.username }}</h2>
+        {% else %}
+        <h1>{{ user.username }}</h1>
+        {% endif %} {% if request.user == user %}
+        <a href="{% url 'updateUser' %}" class="F2-button edit-profile">Edit Profile</a>
         {% endif %}
       </div>
       <img class="profile-img" src="{{ user.avatar.url }}" alt="profile picture" />

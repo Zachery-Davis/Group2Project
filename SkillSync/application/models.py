@@ -4,7 +4,6 @@ from django.core.validators import RegexValidator
 # Create your models here.
 
 class User(AbstractUser):
-    name = models.CharField(max_length=200, null=True)
     email = models.EmailField(unique=True, null=True)
     phoneNumber = models.CharField(max_length=15, null=True, validators=[
             RegexValidator(

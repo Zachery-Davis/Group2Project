@@ -37,6 +37,18 @@ form {
   width: 80%;
 }
 
+h1 {
+  margin: 0;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+p {
+  font-size: 16px;
+}
+
 /* Dark mode */
 .dark-mode {
   background-color: var(--darkGrey);
@@ -536,7 +548,6 @@ footer .fa-expand {
 .profile-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   margin-bottom: 40px;
   font-size: 32px;
 }
@@ -570,6 +581,14 @@ footer .fa-expand {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 1);
 }
 
+.username {
+  margin: 0;
+}
+
+.edit-profile {
+  margin: 10px 0;
+}
+
 .overview {
   width: 60%;
 }
@@ -580,18 +599,19 @@ footer .fa-expand {
 
 .overview h2,
 .contact h2 {
-  font-size: 24px;
   margin-bottom: 20px;
 }
 
 .overview p {
-  font-size: 16px;
   line-height: 1.5;
 }
 
 .contact p {
-  font-size: 16px;
   margin-bottom: 10px;
+}
+
+.contact a {
+  text-decoration: underline;
 }
 
 .profile-container {
