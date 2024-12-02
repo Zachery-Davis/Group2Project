@@ -1,0 +1,40 @@
+{% extends 'main.html' %} {% block content%}
+<main style="display: flex; height: 100vh; align-items: center">
+  <div class="sidebar">
+    <button class="tablinks selected">Overview</button>
+    <button class="tablinks">Edit Account</button>
+    <button class="tablinks">Notifications</button>
+    <button class="tablinks">Sign Out</button>
+  </div>
+  <div class="content">
+    <section class="cards-section">
+      <div class="card">
+        <h3>CCI Skill Tree</h3>
+        <p>Skill Tree representing the skills needed to succeed in Computer Science.</p>
+        <button><a href="{% url 'treePage' %}">View Tree</a></button>
+      </div>
+
+      <div class="card">
+        <h3>Entrepreneur Skill Tree</h3>
+        <p>Skill Tree representing the skills needed to strengthen and improve on your entrepreneurship.</p>
+        <button><a href="{% url 'treePage' %}">View Tree</a></button>
+      </div>
+
+      <div class="card">
+        <h3>Internship Skill Tree</h3>
+        <p>Skill Tree representing the skills needed to apply and engage in applying for internships.</p>
+        <button><a href="{% url 'treePage' %}">View Tree</a></button>
+      </div>
+
+      <div class="card" style="box-shadow: 0 0 8px #4d9447">
+        <h3>Create New Tree</h3>
+        <p>Want to track more progress? Create another!</p>
+        <button style="background-color: #4d9447"><a href="{% url 'treePage' %}">Create Tree</a></button>
+      </div>
+    </section>
+  </div>
+</main>
+<footer>
+  <i class="fa-regular fa-lightbulb" onclick="toggleDarkMode()" title="Toggle Dark Mode"></i>
+</footer>
+{% endblock content%}

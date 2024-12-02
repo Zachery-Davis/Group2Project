@@ -30,4 +30,5 @@ urlpatterns = [
     path("account/", views.accountPage, name="accountPage"),
     path("profile/", views.profilePage, name="profilePage"),
     path("updateUser/", views.updateUser, name="updateUser"),
+    path("createTree/", views.createTreePage, name="createTree"),
 ]

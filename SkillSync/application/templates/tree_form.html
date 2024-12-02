@@ -1,0 +1,21 @@
+{% extends 'main.html' %} {% load static %} {% block content%} {% include 'header.html' %}
+<main>
+  <div class="form-container questionnaire">
+    <h2>Questionnaire</h2>
+    <form action="login" method="POST">
+      <div class="form-group">
+        <label for="answer">What is your future career?</label>
+        <input type="text" id="answer" name="answer" placeholder="Software Engineer" required />
+      </div>
+      <button type="submit" class="F2-button">Next</button>
+    </form>
+  </div>
+</main>
+
+<footer>
+  <i class="fa-solid fa-expand" onclick="resetScale()" title="Reset Zoom"></i>
+  <i class="fa-regular fa-lightbulb" onclick="toggleDarkMode()" title="Toggle Dark Mode"></i>
+</footer>
+
+<script src="{% static 'js/tree.js' %}" defer></script>
+{% endblock content%}

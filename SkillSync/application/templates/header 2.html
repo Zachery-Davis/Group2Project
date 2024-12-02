@@ -1,0 +1,14 @@
+{% load static %}
+<header>
+  <a href="{% url 'dashboardPage' %}"><img src="{% static './images/logo.png' %}" alt="Logo" /></a>
+  <a href="{% url 'profilePage' %}" class="user-icon"> <img class="profile-img icon" src="{% static './images/default user.png' %}" alt="profile picture" /> </a>
+  <div class="dropdown">
+    <i class="fa-solid fa-bars" onclick="toggleDropdown()"></i>
+    <div class="dropdown-content" id="dropdownMenu">
+      <a href="{% url 'accountPage' %}">Account</a>
+      <a href="{% url 'dashboardPage' %}">Skill Tree</a>
+      <!-- <a href="#">Skill List</a> -->
+      <a href="{% url 'logout' %}">Sign Out</a>
+    </div>
+  </div>
+</header>

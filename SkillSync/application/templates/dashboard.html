@@ -8,29 +8,13 @@
   </div>
   <div class="content">
     <section class="cards-section">
+      {% for tree in trees %}
       <div class="card">
-        <h3>CCI Skill Tree</h3>
-        <p>Skill Tree representing the skills needed to succeed in Computer Science.</p>
+        <h3>{{tree.name}}</h3>
+        <p>{{tree.description}}</p>
         <a href="{% url 'treePage' %}">View Tree</a>
       </div>
-
-      <div class="card">
-        <h3>Entrepreneur Skill Tree</h3>
-        <p>Skill Tree representing the skills needed to strengthen and improve on your entrepreneurship.</p>
-        <a href="{% url 'treePage' %}">View Tree</a>
-      </div>
-
-      <div class="card">
-        <h3>Internship Skill Tree</h3>
-        <p>Skill Tree representing the skills needed to apply and engage in applying for internships.</p>
-        <a href="{% url 'treePage' %}">View Tree</a>
-      </div>
-
-      <div class="card" style="box-shadow: 0 0 8px #4d9447">
-        <h3>Create New Tree</h3>
-        <p>Want to track more progress? Create another!</p>
-        <a href="{% url 'treePage' %}" style="background-color: #4d9447">Create Tree</a>
-      </div>
+      {% endfor %}
     </section>
   </div>
 </main>

@@ -20,3 +20,8 @@ class UserForm(ModelForm):
     class Meta:
         model = User
         fields = ["username", "email", "password", "first_name", "last_name", "avatar", "bio"]
+
+class TreeForm(forms.Form):
+    name = forms.CharField(max_length=100)
+    subject = forms.CharField(max_length=100)
+    

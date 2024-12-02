@@ -51,8 +51,11 @@ def logoutUser(request):
     return redirect("loginPage")
 
 # Dashboard Page 
+@login_required(login_url="login")
 def dashboardPage(request):
-    context = {}
+    user = request.user
+    trees = user.json_data.all()
+    context = {"trees": trees}
     return render(request, "dashboard.html", context)
 
 # Tree Page 
@@ -60,14 +63,22 @@ def treePage(request):
     context = {}
     return render(request, "tree.html", context)
 
+# Create Tree Page
+def createTreePage(request):
+    context = {}
+    return render(request, "tree_form.html", context)
+
 # Account Page 
 def accountPage(request):
     context = {}
     return render(request, "account.html", context)
 
 # Profile Page 
+@login_required(login_url="login")
 def profilePage(request):
-    context = {}
+    user = request.user
+    trees = user.json_data.all()
+    context = {"trees": trees}
     return render(request, "profile.html", context)
 
 # Update User Page 
