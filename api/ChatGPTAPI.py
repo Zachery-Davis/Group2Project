@@ -78,17 +78,40 @@ class ChatGPTAPI:
         response = self.jsonPrepare(message)
         return json.dumps(response, indent=4)
     
-    # Iterate Through First Dictionaries
-    def starterBranches(self, message):
-        response = self.jsonPrepare(message)
+    # Recursion Process Of Accessing All Branches Of The Tree
+    # Applies Another Key And Value Pair 
+    # Helps Us Limit The Amount Of Responsibilities For The AI
+    def displayBranches(response, depth=0):
+        if not isinstance(response, dict):
+            return response
+        
         for key, value in response.items():
-            print(key)
-        return None
+            if isinstance(value, dict) and "title" in value and "description" in value:
+                value["completedTask"] = False
+            ChatGPTAPI.displayBranches(value, depth+1)
+
+    # Grabs The First Dictionary Which Holds The Tree Title
+    def titleOfTree(self, message):
+        response = self.jsonPrepare(message)
+        return response["title"]
     
+    # Grabs The First Dictionary Which Holds The Tree Description
+    def descriptionOfTree(self, message):
+        response = self.jsonPrepare(message)
+        return response["description"]
+    
+# IMPORTANT
+# Use This Method When Working On Formatting The JSON Data
+# Instead Of Using Up Unecessary Requests
+def loadJson():
+    response = None
+    with open("store.json", "r") as file:
+        response = json.load(file)
+    return response
+
 # Main Method Testing
 if __name__ == "__main__":
-    response = ChatGPTAPI()
-    response = response.revertJson("Computer Science")
-    print(response)
+    response = loadJson()
+    ChatGPTAPI.displayBranches(response)
 
     
