@@ -1,20 +1,26 @@
-{% extends 'main.html' %} {% block content%} {% include 'header.html' %}
+{% extends 'main.html' %} {% block content%}
 <main class="dashboard-main">
   <div class="sidebar">
-    <button class="tablinks selected">Overview</button>
-    <button class="tablinks">Edit Account</button>
-    <button class="tablinks">Notifications</button>
-    <button class="tablinks">Sign Out</button>
+    <a href="{% url 'profilePage' user.username %}"><img class="profile-img" src="{{ user.avatar.url }}" alt="profile picture" /></a>
+    <a href="{% url 'createTree' %}">Create Tree</a>
+    <a href="{% url 'updateUser' %}">Edit Profile</a>
+    <a href="{% url 'logout' %}">Sign Out</a>
   </div>
   <div class="content">
     <section class="cards-section">
-      {% for tree in trees %}
+      {% if tree in trees %} {% for tree in trees %}
       <div class="card">
         <h3>{{tree.name}}</h3>
         <p>{{tree.description}}</p>
         <a href="{% url 'treePage' %}">View Tree</a>
       </div>
-      {% endfor %}
+      {% endfor %} {% else %}
+      <div class="card" style="box-shadow: 0 0 8px #4d9447">
+        <h3>Create New Tree</h3>
+        <p>Start by creating a new tree!</p>
+        <a href="{% url 'createTree' %}" style="background-color: #4d9447">Create Tree</a>
+      </div>
+      {% endif %}
     </section>
   </div>
 </main>

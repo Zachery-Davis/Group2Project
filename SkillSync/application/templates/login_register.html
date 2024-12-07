@@ -16,8 +16,8 @@
         <input type="password" id="password" name="password" placeholder="password" required />
       </div>
       <button type="submit" class="F1-button">Login</button>
+      <a href="{% url 'registerPage' %}" class="F2-button">Don't have an account? Register</a>
     </form>
-    <a href="{% url 'registerPage' %}" class="F2-button">Don't have an account? Register</a>
     {% else %}
     <h2>Register</h2>
     <form action="" method="POST">
@@ -28,9 +28,9 @@
       </div>
       {% endfor %}
 
-      <button type="submit" class="F1-button">Submit</button>
+      <button type="submit" class="F1-button">Register</button>
+      <a href="{% url 'loginPage' %}" class="F2-button">Already have an account? Login</a>
     </form>
-    <a href="{% url 'loginPage' %}" class="F2-button">Already have an account? Register</a>
   </main>
 
   <footer>

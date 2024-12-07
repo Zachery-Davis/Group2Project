@@ -38,13 +38,19 @@
 
     <!-- Skill Cards Section -->
     <section class="cards-section">
-      {% for tree in trees %}
+      {% if tree in trees %} {% for tree in trees %}
       <div class="card">
         <h3>{{tree.name}}</h3>
         <p>{{tree.description}}</p>
+        {% if request.user == user %}
         <a href="{% url 'treePage' %}">View Tree</a>
+        {% endif %}
       </div>
-      {% endfor %}
+      {% endfor %} {% else %}
+      <div class="card">
+        <h3>No trees currently.</h3>
+      </div>
+      {% endif %}
     </section>
   </div>
 </main>

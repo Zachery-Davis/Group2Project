@@ -24,6 +24,7 @@ main {
 a {
   color: inherit;
   text-decoration: none;
+  text-align: center;
 }
 
 img {
@@ -473,14 +474,9 @@ footer .fa-expand {
 }
 
 /* AccountPage */
-
-.account-page {
-  width: 100%;
-  height: 100%;
-}
-
 .sidebar {
   width: 10vw;
+  min-width: fit-content;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -489,11 +485,11 @@ footer .fa-expand {
   justify-content: center;
 }
 
-.sidebar button {
+.sidebar button,
+.sidebar a {
   background-color: inherit;
   color: inherit;
   padding: 16px;
-  width: 100%;
   border: none;
   text-align: left;
   cursor: pointer;
@@ -501,7 +497,8 @@ footer .fa-expand {
   box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.5);
 }
 
-.sidebar button:hover {
+.sidebar button:hover,
+.sidebar a:hover {
   filter: invert(25%);
 }
 
@@ -526,13 +523,22 @@ footer .fa-expand {
   font-size: 16px;
 }
 
-.settings-form .form-group,
-.settings-form button {
+.settings-container {
+  justify-self: center;
+  align-content: center;
+}
+
+.settings-form .form-group {
+  width: 100%;
   margin: 0 0 1rem 0;
 }
 
+.settings-form button {
+  margin: 0 auto 1rem auto;
+}
+
 .settings-form textarea {
-  width: 40vw;
+  width: 100%;
   height: 20vh;
   resize: none;
 }

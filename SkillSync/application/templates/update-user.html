@@ -1,6 +1,6 @@
-{% extends 'main.html' %} {% load static %} {% block content%} {% include 'header.html' %}
+{% extends 'main.html' %} {% block content%} {% include 'header.html' %}
 
-<div>
+<div class="settings-container form-container">
   <h2>Settings</h2>
   <form class="settings-form" method="POST" action="" enctype="multipart/form-data">
     {% csrf_token %} {% for field in form %}
@@ -15,5 +15,9 @@
     <button type="submit" class="F1-button">Save Changes</button>
   </form>
 </div>
+
+<footer>
+  <i class="fa-regular fa-lightbulb" onclick="toggleDarkMode()" title="Toggle Dark Mode"></i>
+</footer>
 
 {% endblock content%}
