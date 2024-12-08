@@ -1,76 +1,7 @@
-{% extends 'main.html' %} {% load static %} {% block content%} {% include 'header.html' %}
+{% extends 'main.html' %} {% load static %} {% block content%} {% include 'header.html' %} {% load custom_tags %}
 <main>
-  <div class="tree-container">
-    <ul class="tree">
-      <li>
-        <button>Home</button>
-        <ul>
-          <li>
-            <button>About us</button>
-            <ul>
-              <li>
-                <button>Our history</button>
-                <ul>
-                  <li>
-                    <button>Founder</button>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <button>Our board</button>
-                <ul>
-                  <li>
-                    <button>Brad Whiteman</button>
-                  </li>
-                  <li>
-                    <button>Cynthia Tolken</button>
-                  </li>
-                  <li>
-                    <button>Bobby Founderson</button>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <button>Our products</button>
-            <ul>
-              <li>
-                <button>The Widget 2000™</button>
-                <ul>
-                  <li>
-                    <button>Order form</button>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <button>The McGuffin V2</button>
-                <ul>
-                  <li>
-                    <button>Order form</button>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <button>Contact us</button>
-            <ul>
-              <li>
-                <button>Social media</button>
-                <ul>
-                  <li>
-                    <button>Facebook</button>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-
+  {% renderNestedDict jsonData %}
+  
   <div class="info-panel">
     <div class="tab-container">
       <button class="tab" onclick="showTab('description')">Description</button>

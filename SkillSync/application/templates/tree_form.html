@@ -1,11 +1,11 @@
 {% extends 'main.html' %} {% load static %} {% block content%} {% include 'header.html' %}
 <div class="form-container questionnaire">
-  <h2>Question</h2>
+  <h2>Tree Theme</h2>
   <form action="" method="POST">
     {% csrf_token %}
     <div class="form-group">
-      <label for="answer">What is your future career?</label>
-      <input type="text" id="answer" name="answer" placeholder="Software Engineer" required />
+      <label for="answer">Enter a keyword or phrase to describe how you want the tree to be designed (e.g., skill development, project management, learning path).</label>
+      <input type="text" id="answer" name="subject" placeholder="Software Engineer" required />
     </div>
     <button type="submit" class="F2-button">Submit</button>
   </form>

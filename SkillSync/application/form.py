@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
-from .models import User
+from .models import User, UserJsonData
 from django import forms
 
 class RegisterForm(UserCreationForm):
@@ -22,6 +22,6 @@ class UserForm(ModelForm):
         fields = ["username", "email", "password", "first_name", "last_name", "avatar", "bio"]
 
 class TreeForm(forms.Form):
-    name = forms.CharField(max_length=100)
-    subject = forms.CharField(max_length=100)
+    subject = forms.CharField(max_length=30)
+    
     

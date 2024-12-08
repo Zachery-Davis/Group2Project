@@ -20,7 +20,11 @@
     <section class="main-section">
       <div class="overview">
         <h2>Overview</h2>
+        {% if user.bio %}
         <p>{{user.bio}}</p>
+        {% else %}
+        <p>{{user.username}} has no bio currently.</p>
+        {% endif %}
       </div>
 
       <div class="contact">

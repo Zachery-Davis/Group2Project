@@ -1,0 +1,17 @@
+{% load custom_tags %}
+<div class="tree-container">
+    <ul class="tree">
+        {% for key, value in jsonData.items %}
+            <li>
+                {% if key == "title" %}
+                    {{ value }}  <!-- Display current title -->
+                {% elif value|is_dict %}
+                    <!-- Recursively render nested dictionary -->
+                    {% renderNestedDict value %}
+                {% else %}
+                    <!-- Handle non-dictionary values -->
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>

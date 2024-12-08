@@ -4,6 +4,17 @@ from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from .models import UserJsonData
+import os
+import sys
+cwd = os.getcwd()
+apiPath = os.path.abspath(os.path.join(cwd, "../"))
+sys.path.append(apiPath)
+from api.ChatGPTAPI import ChatGPTAPI
+
+# Access Key Path
+apiKey = os.path.abspath(os.path.join(cwd, "../api/apiKey.txt"))
+
 
 
 # Landing Page 
@@ -60,23 +71,32 @@ def dashboardPage(request):
 
 # Tree Page 
 def treePage(request):
-    context = {}
+    user = request.user
+    trees = user.json_data.all()
+    tree = trees[0]
+    jsonData = tree.data
+    context = {"jsonData": jsonData}
     return render(request, "tree.html", context)
 
 # Create Tree Page
 def createTreePage(request):
+    if request.method == "POST":
+        form = TreeForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data["subject"]
+            api = ChatGPTAPI(apiKey, subject)
+            title = api.titleOfTree()
+            description = api.descriptionOfTree()
+            newTree = UserJsonData(user=request.user, name=title, description=description, data=api.response)
+            newTree.save()
+            return redirect("dashboardPage")
     context = {}
     return render(request, "tree_form.html", context)
 
-# Account Page 
-def accountPage(request):
-    context = {}
-    return render(request, "account.html", context)
-
 # Profile Page 
 @login_required(login_url="login")
-def profilePage(request, user):
-    user = User.objects.get(username=user)
+def profilePage(request):
+    user = request.user
     trees = user.json_data.all()
     context = {"user": user, "trees": trees}
     return render(request, "profile.html", context)
