@@ -1,9 +1,14 @@
 {% extends 'main.html' %} {% load static %} {% block content%} {% include 'header.html' %} {% load custom_tags %}
 <main>
   <div class="tree-container">
-      {% renderNestedDict jsonData %}
+    <ul class="tree">
+      <script>
+        const jsonData = {{ jsonData|safe }};
+      </script>
+      <li>{% renderNestedDict jsonData %}</li>
+    </ul>
   </div>
-  
+
   <div class="info-panel">
     <div class="tab-container">
       <button class="tab" onclick="showTab('description')">Description</button>
@@ -13,7 +18,7 @@
       <p id="infoDescription">Node Description</p>
     </div>
   </div>
-</main> 
+</main>
 
 <footer>
   <i class="fa-solid fa-expand" onclick="resetScale()" title="Reset Zoom"></i>

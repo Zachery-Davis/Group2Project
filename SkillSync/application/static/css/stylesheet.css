@@ -474,6 +474,12 @@ footer .fa-expand {
 }
 
 /* AccountPage */
+
+.account-page {
+  width: 100%;
+  height: 100%;
+}
+
 .sidebar {
   width: 10vw;
   min-width: fit-content;
@@ -534,10 +540,6 @@ footer .fa-expand {
 }
 
 .settings-form .form-group,
-.settings-form button {
-  margin: 0 0 1rem 0;
-}
-
 .settings-form button {
   margin: 0 auto 1rem auto;
 }
