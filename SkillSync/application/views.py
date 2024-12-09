@@ -95,8 +95,8 @@ def createTreePage(request):
 
 # Profile Page 
 @login_required(login_url="login")
-def profilePage(request):
-    user = request.user
+def profilePage(request, user):
+    user = User.objects.get(username=user)
     trees = user.json_data.all()
     context = {"user": user, "trees": trees}
     return render(request, "profile.html", context)

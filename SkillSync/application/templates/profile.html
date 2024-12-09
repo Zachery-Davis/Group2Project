@@ -17,7 +17,7 @@
     </div>
 
     <!-- Overview and Contact Section -->
-    <section class="main-section">
+    <section class="card-section profile-section">
       <div class="overview">
         <h2>Overview</h2>
         {% if user.bio %}
@@ -38,11 +38,9 @@
         <p><a href="https://github.com/{{ user.Github }}" target="_blank" rel="noopener noreferrer">Github</a></p>
         {% endif %}
       </div>
-    </section>
 
-    <!-- Skill Cards Section -->
-    <section class="cards-section">
-      {% if tree in trees %} {% for tree in trees %}
+      <!-- Skill Cards Section -->
+      {% if trees %} {% for tree in trees %}
       <div class="card">
         <h3>{{tree.name}}</h3>
         <p>{{tree.description}}</p>

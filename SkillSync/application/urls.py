@@ -27,7 +27,7 @@ urlpatterns = [
     
     path("dashboard/", views.dashboardPage, name="dashboardPage"),
     path("tree/", views.treePage, name="treePage"),
-    path("profile/", views.profilePage, name="profilePage"),
+    path("profile/<str:user>/", views.profilePage, name="profilePage"),
     path("updateUser/", views.updateUserPage, name="updateUser"),
     path("createTree/", views.createTreePage, name="createTree"),
 ]

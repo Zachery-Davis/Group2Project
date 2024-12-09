@@ -1,16 +1,18 @@
 {% extends 'main.html' %} {% block content%}
 <main class="dashboard-main">
   <div class="sidebar">
-    <a href="{% url 'profilePage' %}"><img class="profile-img" src="{{ user.avatar.url }}" alt="profile picture" /><p style="text-align: center;">{{user.username}}</p></a>
+    <a href="{% url 'profilePage' user.username %}"
+      ><img class="profile-img" src="{{ user.avatar.url }}" alt="profile picture" />
+      <p style="text-align: center">{{user.username}}</p></a
+    >
     <a href="{% url 'createTree' %}">Create Tree</a>
     <a href="{% url 'updateUser' %}">Edit Profile</a>
     <a href="{% url 'logout' %}">Sign Out</a>
   </div>
   <div class="content">
-    <section class="cards-section">
-     {% if trees %}
-     {% for tree in trees %}
-      <div class="card">
+    <section class="card-section">
+      {% if trees %} {% for tree in trees %}
+      <div class="card dashboard-card">
         <h3>{{tree.name}}</h3>
         <p>{{tree.description}}</p>
         <a href="{% url 'treePage' %}">View Tree</a>
