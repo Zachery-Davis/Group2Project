@@ -49,6 +49,7 @@ def loginPage(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
+            messages.success(request, "Login Successful!")
             return redirect("dashboardPage")
         else:
             messages.error(request, "Login failed. Ensure your credentials are correct and try again.")

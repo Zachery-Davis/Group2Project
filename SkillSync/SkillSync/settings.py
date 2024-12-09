@@ -99,7 +99,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = "application.User"
+AUTH_USER_MODEL = 'application.User'
+
 
 
 # Internationalization
