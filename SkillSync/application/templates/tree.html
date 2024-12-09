@@ -1,24 +1,17 @@
 {% extends 'main.html' %} {% load static %} {% block content%} {% include 'header.html' %} {% load custom_tags %}
 <main>
-  {% renderNestedDict jsonData %}
+  
+  <div class="tree-container">
+      {% renderNestedDict jsonData %}
+  </div>
   
   <div class="info-panel">
     <div class="tab-container">
       <button class="tab" onclick="showTab('description')">Description</button>
-      <button class="tab" onclick="showTab('relatedSkills')">Related Skills</button>
-      <button class="tab" onclick="showTab('ai')">AI</button>
     </div>
     <div class="tab-content" id="descriptionTab">
       <h3 id="infoTitle">Node Title</h3>
       <p id="infoDescription">Node Description</p>
-    </div>
-    <div class="tab-content" id="relatedSkillsTab" style="display: none">
-      <h3>Related Skills</h3>
-      <p>Related skills content goes here.</p>
-    </div>
-    <div class="tab-content" id="aiTab" style="display: none">
-      <h3>AI</h3>
-      <p>AI-related content goes here.</p>
     </div>
   </div>
 </main>
