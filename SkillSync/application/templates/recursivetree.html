@@ -1,0 +1,9 @@
+{% load static %} {% load custom_tags %} {% for key, value in jsonData.items %} {% if key == "title" %}
+<button>{{ value }}</button>
+{% elif key == "extend" and value %}
+<ul>
+  {% renderNestedDict value %}
+</ul>
+{% elif value|is_dict and value %}
+<li>{% renderNestedDict value %}</li>
+{% endif %} {% endfor %}

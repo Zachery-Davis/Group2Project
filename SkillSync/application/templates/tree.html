@@ -1,9 +1,17 @@
 {% extends 'main.html' %} {% load static %} {% block content%} {% include 'header.html' %} {% load custom_tags %}
 <main>
   <div class="tree-container">
-      <ul class="tree">
-        {% renderNestedDict jsonData %}
-      </ul>
+      {% renderNestedDict jsonData %}
+  </div>
+  
+  <div class="info-panel">
+    <div class="tab-container">
+      <button class="tab" onclick="showTab('description')">Description</button>
+    </div>
+    <div class="tab-content" id="descriptionTab">
+      <h3 id="infoTitle">Node Title</h3>
+      <p id="infoDescription">Node Description</p>
+    </div>
   </div>
 </main> 
 

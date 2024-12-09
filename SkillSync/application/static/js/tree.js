@@ -19,8 +19,22 @@ if (document.querySelector(".tree")) {
       const infoDescription = document.getElementById("infoDescription");
 
       const title = button.textContent;
-      const description = "Some description here"; // TODO Update with database
       const nodeElement = event.target;
+      let description = "";
+
+      findDescription(jsonData);
+      function findDescription(value) {
+        if (value.title == title) {
+          description = value.description;
+          return;
+        }
+
+        if (value.extend && Object.keys(value.extend).length > 0) {
+          for (let key in value.extend) {
+            findDescription(value.extend[key]); // Recurse into nested objects
+          }
+        }
+      }
 
       if (currentNode === nodeElement) {
         infoPanel.classList.remove("show");

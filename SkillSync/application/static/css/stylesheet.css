@@ -533,6 +533,11 @@ footer .fa-expand {
   margin: 0 0 1rem 0;
 }
 
+.settings-form .form-group,
+.settings-form button {
+  margin: 0 0 1rem 0;
+}
+
 .settings-form button {
   margin: 0 auto 1rem auto;
 }
@@ -557,35 +562,6 @@ footer .fa-expand {
   font-size: 32px;
 }
 
-.profile-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 40px;
-}
-
-.profile-section h1 {
-  font-size: 48px;
-  font-weight: 700;
-  width: 70%;
-}
-
-.main-section {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 60px;
-}
-
-.main-section > div {
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
-  border-radius: 10px;
-}
-
-.main-section > div:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 1);
-}
-
 .username {
   margin: 0;
 }
@@ -594,12 +570,47 @@ footer .fa-expand {
   margin: 10px 0;
 }
 
-.overview {
-  width: 60%;
+.profile-container {
+  padding: 40px 80px;
 }
 
-.contact {
-  width: 30%;
+.profile-img {
+  width: 100px;
+  height: 100px;
+  background-color: var(--darkGrey);
+  border-radius: 50%;
+  border: 3px solid var(--black);
+  padding: 5px;
+  object-fit: cover;
+  margin: 0;
+  justify-self: center;
+}
+
+.profile-section {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* + DashboardPage */
+.card-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-rows: auto 1fr;
+  grid-gap: 20px;
+  margin-bottom: 60px;
+}
+
+.card-section > div {
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+  border-radius: 10px;
+}
+
+.card-section > div:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 1);
+}
+
+.card-section .overview {
+  grid-column: span 2;
 }
 
 .overview h2,
@@ -619,34 +630,10 @@ footer .fa-expand {
   text-decoration: underline;
 }
 
-.profile-container {
-  padding: 40px 80px;
-}
-
-.profile-img {
-  width: 100px;
-  height: 100px;
-  background-color: var(--darkGrey);
-  border-radius: 50%;
-  border: 3px solid var(--black);
-  padding: 5px;
-  object-fit: cover;
-  margin: 0;
-}
-
-/* DashboardPage */
 .dashboard-main {
   display: flex;
   height: 100vh;
   align-items: center;
-}
-
-.cards-section {
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  justify-items: center;
 }
 
 .card {
