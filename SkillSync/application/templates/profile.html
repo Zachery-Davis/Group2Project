@@ -44,9 +44,7 @@
       <div class="card">
         <h3>{{tree.name}}</h3>
         <p>{{tree.description}}</p>
-        {% if request.user == user %}
-        <a href="{% url 'treePage' %}">View Tree</a>
-        {% endif %}
+        <a class="F1-button" href="{% url 'treePage' user.username tree.name %}">View Tree</a>
       </div>
       {% endfor %} {% else %}
       <div class="card">

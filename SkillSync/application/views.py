@@ -15,8 +15,6 @@ from api.ChatGPTAPI import ChatGPTAPI
 # Access Key Path
 apiKey = os.path.abspath(os.path.join(cwd, "../api/apiKey.txt"))
 
-
-
 # Landing Page 
 def landingPage(request):
     context = {}
@@ -58,6 +56,7 @@ def loginPage(request):
     context = {"page": "login"}
     return render(request, "login_register.html", context)
 
+@login_required(login_url="login")
 def logoutUser(request):
     logout(request)
     return redirect("loginPage")
@@ -71,15 +70,18 @@ def dashboardPage(request):
     return render(request, "dashboard.html", context)
 
 # Tree Page 
-def treePage(request):
-    user = request.user
-    trees = user.json_data.all()
-    tree = trees[0]
-    jsonData = tree.data
-    context = {"jsonData": jsonData}
-    return render(request, "tree.html", context)
+def treePage(request, user, name):
+    user = User.objects.get(username=user)
+    tree = user.json_data.filter(name=name).first()
+    if tree:
+        jsonData = tree.data
+        context = {"jsonData": jsonData}
+        return render(request, "tree.html", context)
+    
+    return redirect("dashboardPage")
 
 # Create Tree Page
+@login_required(login_url="login")
 def createTreePage(request):
     if request.method == "POST":
         form = TreeForm(request.POST)
@@ -94,8 +96,16 @@ def createTreePage(request):
     context = {}
     return render(request, "tree_form.html", context)
 
-# Profile Page 
+# Delete Tree
 @login_required(login_url="login")
+def deleteTree(request, name):
+    user = request.user
+    tree = user.json_data.filter(name=name).first()
+    if tree:
+        tree.delete()
+    return redirect("dashboardPage")
+
+# Profile Page 
 def profilePage(request, user):
     user = User.objects.get(username=user)
     trees = user.json_data.all()
@@ -124,7 +134,7 @@ def updateUserPage(request):
                 request.user.bio = form.cleaned_data['bio']
                 
             request.user.save()
-            return redirect('profilePage')
+            return redirect('profilePage', request.user.username)
     else:
         form = UserForm()
     context = {'form': form}

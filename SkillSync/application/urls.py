@@ -24,10 +24,12 @@ urlpatterns = [
     path("register/", views.registerPage, name="registerPage"),
     path("login/", views.loginPage, name="loginPage"),
     path("logout/", views.logoutUser, name="logout"),
-    
-    path("dashboard/", views.dashboardPage, name="dashboardPage"),
-    path("tree/", views.treePage, name="treePage"),
     path("profile/<str:user>/", views.profilePage, name="profilePage"),
     path("updateUser/", views.updateUserPage, name="updateUser"),
+    
+    path("dashboard/", views.dashboardPage, name="dashboardPage"),
+
+    path("<str:user>/tree/<str:name>", views.treePage, name="treePage"),
     path("createTree/", views.createTreePage, name="createTree"),
+    path("deleteTree/<str:name>", views.deleteTree, name="deleteTree"),
 ]

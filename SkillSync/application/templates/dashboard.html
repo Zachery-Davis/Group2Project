@@ -15,7 +15,8 @@
       <div class="card dashboard-card">
         <h3>{{tree.name}}</h3>
         <p>{{tree.description}}</p>
-        <a href="{% url 'treePage' %}">View Tree</a>
+        <a class="F1-button" href="{% url 'treePage' request.user.username tree.name %}">View Tree</a>
+        <a class="F2-button" href="{% url 'deleteTree' tree.name %}">Delete Tree</a>
       </div>
       {% endfor %} {% else %}
       <div class="card" style="box-shadow: 0 0 8px #4d9447">
