@@ -30,6 +30,7 @@ urlpatterns = [
     path("dashboard/", views.dashboardPage, name="dashboardPage"),
 
     path("<str:user>/tree/<str:name>", views.treePage, name="treePage"),
+    path("toggleLeaf/<str:treeName>/<str:nodeName>/", views.toggleLeaf, name="toggleLeaf"),
     path("createTree/", views.createTreePage, name="createTree"),
     path("deleteTree/<str:name>", views.deleteTree, name="deleteTree"),
 ]

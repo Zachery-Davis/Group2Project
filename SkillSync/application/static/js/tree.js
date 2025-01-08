@@ -17,8 +17,9 @@ if (document.querySelector(".tree")) {
       const infoPanel = document.querySelector(".info-panel");
       const infoTitle = document.getElementById("infoTitle");
       const infoDescription = document.getElementById("infoDescription");
+      const completedForm = document.getElementById("toggleLeafForm");
 
-      const title = button.textContent;
+      const title = button.textContent.slice(0, -2);
       const nodeElement = event.target;
       let description = "";
 
@@ -48,6 +49,9 @@ if (document.querySelector(".tree")) {
 
         infoTitle.textContent = title;
         infoDescription.textContent = description;
+        const encodedJsonDataTitle = encodeURIComponent(jsonData.title);
+        const encodedTitle = encodeURIComponent(title);
+        completedForm.action = `/toggleLeaf/${encodedJsonDataTitle}/${encodedTitle}/`;
         infoPanel.classList.add("show");
         nodeElement.classList.add("selected"); // Add selection to the clicked node
         currentNode = nodeElement;
