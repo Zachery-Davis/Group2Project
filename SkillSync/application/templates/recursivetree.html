@@ -1,5 +1,5 @@
 {% load static %} {% load custom_tags %} {% for key, value in jsonData.items %} {% if key == "title" %}
-<button>{{ value }}</button>
+<button>{{ value }} {% if jsonData.completedTask == "true" %}✅{% else %}❌{% endif %}</button>
 {% elif key == "extend" and value %}
 <ul>
   {% renderNestedDict value %}

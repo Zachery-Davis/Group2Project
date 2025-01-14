@@ -117,6 +117,49 @@ def deleteTree(request, name):
         tree.delete()
     return redirect("dashboardPage")
 
+# Change Leaf State
+@login_required(login_url="login")
+def toggleLeaf(request, treeName, nodeName):
+    user = request.user
+
+    # Fetch the JSON data for the specified tree name
+    jsonDataObj = user.json_data.filter(name=treeName).first()
+    if not jsonDataObj:
+        messages.error(request, f"Tree '{treeName}' not found.")
+        return redirect("dashboardPage")
+
+    # Get the JSON data
+    jsonData = jsonDataObj.data
+
+    # Recursive function to find and toggle the node's `completedTask`
+    def find_and_toggle(node, target_name):
+        if node.get("title") == target_name:
+            # Toggle the `completedTask` field
+            if "completedTask" in node:
+                node["completedTask"] = "true" if node["completedTask"] == "false" else "false"
+            return True
+
+        # Recursively search in the `extend` field
+        for key, child in node.get("extend", {}).items():
+            if find_and_toggle(child, target_name):
+                return True
+
+        return False
+
+    # Find and toggle the node
+    node_found = find_and_toggle(jsonData, nodeName)
+
+    if node_found:
+        # Save the updated JSON data back to the database
+        jsonDataObj.data = jsonData
+        jsonDataObj.save()
+        messages.success(request, f"Node '{nodeName}' updated successfully.")
+    else:
+        messages.error(request, f"Node '{nodeName}' not found.")
+
+    # Reload tree
+    return redirect("treePage", user.username, treeName)
+
 # Profile Page 
 def profilePage(request, user):
     user = User.objects.get(username=user)
