@@ -7,9 +7,8 @@ import json
 class ChatGPTAPI:
     
     # Constructor Creating The Url And Header
-    def __init__(self):
-        apiKey = ""
-        with open("apiKey", "r") as file:
+    def __init__(self, apiKey, subject):
+        with open(apiKey, "r") as file:
             apiKey = file.readline().strip()
         
         url = "https://cheapest-gpt-4-turbo-gpt-4-vision-chatgpt-openai-ai-api.p.rapidapi.com/v1/chat/completions"
@@ -20,6 +19,14 @@ class ChatGPTAPI:
         }
         self.url = url
         self.headers = headers
+        checkBranches = None
+        response = self.getResponse(subject)
+        self.jsonData = None
+        if(response != None):
+            self.jsonData = self.jsonPrepare(response)
+            checkBranches = ChatGPTAPI.verifyBranches(self.jsonData)
+        self.checkBranches = checkBranches
+
 
     # Returns The Response Of The Request
     def getResponse(self, message):
@@ -40,6 +47,8 @@ class ChatGPTAPI:
             "model": "gpt-4o",
         }
         response = requests.post(self.url, headers=self.headers, json=payload)
+        if(response.status_code != 200):
+            return None
         return response
 
     # Returns The Status Code Of The Request
@@ -74,31 +83,40 @@ class ChatGPTAPI:
     
     # Returns To Original Json State
     # Easier For Reading Through CLI
-    def revertJson(self, message):
+    def revertToJson(self, message):
         response = self.jsonPrepare(message)
         return json.dumps(response, indent=4)
     
     # Recursion Process Of Accessing All Branches Of The Tree
     # Applies Another Key And Value Pair 
     # Helps Us Limit The Amount Of Responsibilities For The AI
-    def displayBranches(response, depth=0):
+    def verifyBranches(response, depth=0):
         if not isinstance(response, dict):
             return response
-        
+        if depth == 0:
+            response["completedTask"] = False
         for key, value in response.items():
-            if isinstance(value, dict) and "title" in value and "description" in value:
+            if isinstance(value, dict) and "title" in key and "description" in key:
                 value["completedTask"] = False
-            ChatGPTAPI.displayBranches(value, depth+1)
+            else:
+                return None
+            ChatGPTAPI.verifyBranches(value, depth+1)
 
     # Grabs The First Dictionary Which Holds The Tree Title
-    def titleOfTree(self, message):
-        response = self.jsonPrepare(message)
-        return response["title"]
+    def titleOfTree(self, jsonData):
+        response = jsonData
+        try:
+            return response["title"]
+        except:
+            return -1
     
     # Grabs The First Dictionary Which Holds The Tree Description
-    def descriptionOfTree(self, message):
-        response = self.jsonPrepare(message)
-        return response["description"]
+    def descriptionOfTree(self, jsonData):
+        response = jsonData
+        try:
+            return response["description"]
+        except:
+            return -1
     
 # IMPORTANT
 # Use This Method When Working On Formatting The JSON Data
@@ -112,6 +130,6 @@ def loadJson():
 # Main Method Testing
 if __name__ == "__main__":
     response = loadJson()
-    ChatGPTAPI.displayBranches(response)
-
+    ChatGPTAPI.verifyBranches(response)
+    print(response["completedTask"])
     

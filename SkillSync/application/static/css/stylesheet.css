@@ -683,3 +683,9 @@ footer .fa-expand {
 .show {
   display: block !important;
 }
+
+.messages {
+  position: fixed;
+  bottom: 0;
+  right: 10;
+}

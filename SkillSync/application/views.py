@@ -11,6 +11,7 @@ cwd = os.getcwd()
 apiPath = os.path.abspath(os.path.join(cwd, "../"))
 sys.path.append(apiPath)
 from api.ChatGPTAPI import ChatGPTAPI
+from api.GrammarGinger import GrammarGinger
 
 # Access Key Path
 apiKey = os.path.abspath(os.path.join(cwd, "../api/apiKey.txt"))
@@ -82,16 +83,27 @@ def treePage(request, user, name):
 
 # Create Tree Page
 @login_required(login_url="login")
-def createTreePage(request):
-    if request.method == "POST":
+def createTreePage(request, rerunSubject=None):
+    if request.method == "POST" or rerunSubject != None:
         form = TreeForm(request.POST)
-        if form.is_valid():
-            subject = form.cleaned_data["subject"]
+        if form.is_valid() or rerunSubject != None:
+            if(rerunSubject == None):  
+                subject = form.cleaned_data["subject"]
+            else:
+                subject = rerunSubject
+            wordAPI = GrammarGinger(subject)
+            wordAPI.analyzeWords()
+            if(wordAPI.foundMistake == True):
+                messages.error(request, f"Input not recognized. Did you mean '{wordAPI.rebuildPrompt()}'? Please try again.")
+                return redirect("createTree")
             api = ChatGPTAPI(apiKey, subject)
-            title = api.titleOfTree()
-            description = api.descriptionOfTree()
-            newTree = UserJsonData(user=request.user, name=title, description=description, data=api.response)
+            title = api.titleOfTree(api.jsonData)
+            description = api.descriptionOfTree(api.jsonData)
+            if(title == -1 or description == -1):
+                createTreePage(request, subject)
+            newTree = UserJsonData(user=request.user, name=title, description=description, data=api.jsonData)
             newTree.save()
+            messages.success(request, f"The '{subject}' tree has been successfully constructed.")
             return redirect("dashboardPage")
     context = {}
     return render(request, "tree_form.html", context)
