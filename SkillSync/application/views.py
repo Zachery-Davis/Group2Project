@@ -137,6 +137,8 @@ def toggleLeaf(request, treeName, nodeName):
             # Toggle the `completedTask` field
             if "completedTask" in node:
                 node["completedTask"] = "true" if node["completedTask"] == "false" else "false"
+            else: # Account for nodes that don't have a `completedTask` field
+                node["completedTask"] = "true"
             return True
 
         # Recursively search in the `extend` field
