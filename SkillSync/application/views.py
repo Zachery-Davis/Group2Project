@@ -132,18 +132,27 @@ def toggleLeaf(request, treeName, nodeName):
     jsonData = jsonDataObj.data
 
     # Recursive function to find and toggle the node's `completedTask`
-    def find_and_toggle(node, target_name):
+    def find_and_toggle(node, target_name, parent_completed=True):
         if node.get("title") == target_name:
-            # Toggle the `completedTask` field
-            if "completedTask" in node:
-                node["completedTask"] = "true" if node["completedTask"] == "false" else "false"
-            else: # Account for nodes that don't have a `completedTask` field
-                node["completedTask"] = "true"
-            return True
+            # messages.info(request, "self: " + node.get("completedTask"))
+            # messages.info(request, "parent: " + str(parent_completed))
+            # Check if all subnodes are completed
+            for key, child in node.get("extend", {}).items():
+                if not child.get("completedTask") == "true":
+                    messages.error(request, f"Subnodes of '{nodeName}' are not completed.")
+                    return False
+
+            # Toggle the node's `completedTask` based on parent's state
+            if parent_completed:
+                messages.error(request, f"Parent node of '{nodeName}' is completed.")
+                return False
+            else:
+                node["completedTask"] = "false" if node.get("completedTask") == "true" else "true"
+                return True
 
         # Recursively search in the `extend` field
         for key, child in node.get("extend", {}).items():
-            if find_and_toggle(child, target_name):
+            if find_and_toggle(child, target_name, node.get("completedTask") == "true"):
                 return True
 
         return False
@@ -155,9 +164,7 @@ def toggleLeaf(request, treeName, nodeName):
         # Save the updated JSON data back to the database
         jsonDataObj.data = jsonData
         jsonDataObj.save()
-        messages.success(request, f"Node '{nodeName}' updated successfully.")
-    else:
-        messages.error(request, f"Node '{nodeName}' not found.")
+        messages.success(request, f"Database updated successfully.")
 
     # Reload tree
     return redirect("treePage", user.username, treeName)
