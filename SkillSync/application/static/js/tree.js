@@ -49,9 +49,11 @@ if (document.querySelector(".tree")) {
 
         infoTitle.textContent = title;
         infoDescription.textContent = description;
-        const encodedJsonDataTitle = encodeURIComponent(jsonData.title);
-        const encodedTitle = encodeURIComponent(title);
-        completedForm.action = `/toggleLeaf/${encodedJsonDataTitle}/${encodedTitle}/`;
+        if (completedForm) {
+          const encodedJsonDataTitle = encodeURIComponent(jsonData.title);
+          const encodedTitle = encodeURIComponent(title);
+          completedForm.action = `/toggleLeaf/${encodedJsonDataTitle}/${encodedTitle}/`;
+        }
         infoPanel.classList.add("show");
         nodeElement.classList.add("selected"); // Add selection to the clicked node
         currentNode = nodeElement;

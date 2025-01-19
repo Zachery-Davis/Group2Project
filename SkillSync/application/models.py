@@ -25,6 +25,7 @@ class UserJsonData(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="json_data")
     name = models.CharField(max_length=100, blank=True, null=True)
     description = models.CharField(max_length=500, blank=True, null=True)
+    public = models.BooleanField(default=False)
     data = models.JSONField()
 
     

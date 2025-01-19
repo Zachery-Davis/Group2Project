@@ -70,13 +70,15 @@ def dashboardPage(request):
     context = {"trees": trees}
     return render(request, "dashboard.html", context)
 
-# Tree Page 
+# View Tree Page 
 def treePage(request, user, name):
     user = User.objects.get(username=user)
     tree = user.json_data.filter(name=name).first()
     if tree:
+        if not tree.public and request.user != user:
+            return redirect("dashboardPage")
         jsonData = tree.data
-        context = {"jsonData": jsonData}
+        context = {"jsonData": jsonData, "user": user}
         return render(request, "tree.html", context)
     
     return redirect("dashboardPage")
@@ -110,6 +112,16 @@ def createTreePage(request, rerunSubject=None):
 
 # Delete Tree
 @login_required(login_url="login")
+def togglePublicTree(request, name):
+    user = request.user
+    tree = user.json_data.filter(name=name).first()
+    if tree:
+        tree.public = not tree.public
+        tree.save()
+    return redirect(request.META.get('HTTP_REFERER'))
+
+# Delete Tree
+@login_required(login_url="login")
 def deleteTree(request, name):
     user = request.user
     tree = user.json_data.filter(name=name).first()
@@ -134,8 +146,6 @@ def toggleLeaf(request, treeName, nodeName):
     # Recursive function to find and toggle the node's `completedTask`
     def find_and_toggle(node, target_name, parent_completed=True):
         if node.get("title") == target_name:
-            # messages.info(request, "self: " + node.get("completedTask"))
-            # messages.info(request, "parent: " + str(parent_completed))
             # Check if all subnodes are completed
             for key, child in node.get("extend", {}).items():
                 if not child.get("completedTask") == "true":

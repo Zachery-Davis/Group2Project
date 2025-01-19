@@ -40,16 +40,23 @@
       </div>
 
       <!-- Skill Cards Section -->
-      {% if trees %} {% for tree in trees %}
+      {% if trees %} {% for tree in trees %} {% if tree.public == True or request.user == user %}
       <div class="card">
-        <h3>{{tree.name}}</h3>
+        <h3>{{tree.name}} {% if tree.public == True %} <i class="fa-solid fa-globe" title="Public"></i> {% else %} <i class="fa-solid fa-lock" title="Private"></i> {% endif %}</h3>
         <p>{{tree.description}}</p>
         <a class="F1-button" href="{% url 'treePage' user.username tree.name %}">View Tree</a>
-        {% if request.user == user %} <a class="F2-button" href="{% url 'deleteTree' tree.name %}">Delete Tree</a> {% endif %}
+        {% if request.user == user %}
+        <a class="F2-button" href="{% url 'togglePublicTree' tree.name %}">Toggle Public/Private</a>
+        <a class="F2-button" href="{% url 'deleteTree' tree.name %}">Delete Tree</a>
+        {% endif %}
       </div>
-      {% endfor %} {% else %}
+      {% else %}
       <div class="card">
-        <h3>No trees currently.</h3>
+        <h3>No public trees.</h3>
+      </div>
+      {% endif %} {% endfor %} {% else %}
+      <div class="card">
+        <h3>No trees.</h3>
       </div>
       {% endif %}
     </section>
